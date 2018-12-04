@@ -15,7 +15,7 @@
         </Console>
         
 		<RollingFile name="LOG_ROLLING">
-			<FileName>${LOG_PATH}InventoryAPI_${SERVER_PORT}.log</FileName>
+			<FileName>${LOG_PATH}TodoListAPI.log</FileName>
 			<FilePattern>${LOG_PATH}InventoryAPI_${SERVER_PORT}.%d{yyyy-MM-dd}.log</FilePattern>
 			<PatternLayout>
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M:%line - %msg%n</Pattern>
