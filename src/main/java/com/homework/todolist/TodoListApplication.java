@@ -1,4 +1,4 @@
-package com.example.test;
+package com.homework.todolist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
