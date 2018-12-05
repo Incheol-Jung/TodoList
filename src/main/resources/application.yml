@@ -6,5 +6,8 @@
 spring:
   application:
     name: FashionGo TodoList
+  h2:
+    console:
+      enabled: true
 server:
   port: 29801
