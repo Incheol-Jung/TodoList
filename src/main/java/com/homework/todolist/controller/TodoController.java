@@ -39,27 +39,21 @@ public class TodoController {
         return todoService.saveTodo(todo);
     }
 	
-//	@ResponseBody
-//	@RequestMapping(value="finish/{id}", method=RequestMethod.POST)
-//    public String finishTodo(@PathVariable Integer id) {
-//        return todoService.saveTodo();
-//    }
-//	
-//	@ResponseBody
-//	@RequestMapping(value="unfinish/{id}", method=RequestMethod.POST)
-//    public String unfinishTodo(@PathVariable Integer id) {
-//        return todoService.saveTodo();
-//    }
-//	
-//	@ResponseBody
-//	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.POST)
-//    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
-//        return todoService.saveTodo();
-//    }
-//	
-//	@ResponseBody
-//	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.DELETE)
-//    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
-//        return todoService.saveTodo();
-//    }
+	@ResponseBody
+	@RequestMapping(value="/{id}/finish/{isDone}", method=RequestMethod.POST)
+    public String finishTodo(@PathVariable Integer id, @PathVariable boolean isDone) {
+        return todoService.finishTodo(id, isDone);
+    }
+
+	@ResponseBody
+	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.POST)
+    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
+        return todoService.addReferenceId(id, referenceId);
+    }
+	
+	@ResponseBody
+	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.DELETE)
+    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
+        return todoService.deleteReferenceId(id, referenceId);
+    }
 }
