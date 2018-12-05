@@ -52,8 +52,11 @@ public class TodoService {
 												, paging);
 		
 //		results.setRecCnt(result.getTotalElements());
+//		todoRepository.findReferenceIds();
 		return result.getContent();
 	}
+	
+	
 	
 	/**
 	 * 

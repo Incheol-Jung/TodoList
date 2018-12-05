@@ -4,6 +4,8 @@
 package com.homework.todolist.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 @Entity
 public class MapTodo {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mapId;
 	private int taskId;
 	private int referenceId;

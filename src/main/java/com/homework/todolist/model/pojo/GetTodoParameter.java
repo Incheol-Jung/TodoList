@@ -3,6 +3,8 @@
  */
 package com.homework.todolist.model.pojo;
 
+import java.util.Date;
+
 /**
  * @author Incheol Jung
  */
@@ -19,14 +21,14 @@ public class GetTodoParameter {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public Long getCreatedOn() {
-		return createdOn;
+	public Date getCreatedOn() {
+		return new Date(createdOn);
 	}
 	public void setCreatedOn(Long createdOn) {
 		this.createdOn = createdOn;
 	}
-	public Long getUpdatedOn() {
-		return updatedOn;
+	public Date getUpdatedOn() {
+		return new Date(updatedOn);
 	}
 	public void setUpdatedOn(Long updatedOn) {
 		this.updatedOn = updatedOn;
