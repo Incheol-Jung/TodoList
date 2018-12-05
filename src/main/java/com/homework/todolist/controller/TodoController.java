@@ -21,7 +21,7 @@ import com.homework.todolist.service.TodoService;
  * @author Incheol Jung
  */
 @Controller 
-@RequestMapping("/todo/")
+@RequestMapping("/todo")
 public class TodoController {
 	
 	@Autowired
@@ -30,36 +30,36 @@ public class TodoController {
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.GET)
     public List<Todo> getTodoList(GetTodoParameter parameter) {
-        return todoService.getTodo();
+        return todoService.getTodoList(parameter);
     }
 	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.POST)
     public String saveTodo(@RequestBody Todo todo) {
-        return todoService.saveTodo();
+        return todoService.saveTodo(todo);
     }
 	
-	@ResponseBody
-	@RequestMapping(value="finish/{id}", method=RequestMethod.POST)
-    public String finishTodo(@PathVariable Integer id) {
-        return todoService.saveTodo();
-    }
-	
-	@ResponseBody
-	@RequestMapping(value="unfinish/{id}", method=RequestMethod.POST)
-    public String unfinishTodo(@PathVariable Integer id) {
-        return todoService.saveTodo();
-    }
-	
-	@ResponseBody
-	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.POST)
-    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
-        return todoService.saveTodo();
-    }
-	
-	@ResponseBody
-	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.DELETE)
-    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
-        return todoService.saveTodo();
-    }
+//	@ResponseBody
+//	@RequestMapping(value="finish/{id}", method=RequestMethod.POST)
+//    public String finishTodo(@PathVariable Integer id) {
+//        return todoService.saveTodo();
+//    }
+//	
+//	@ResponseBody
+//	@RequestMapping(value="unfinish/{id}", method=RequestMethod.POST)
+//    public String unfinishTodo(@PathVariable Integer id) {
+//        return todoService.saveTodo();
+//    }
+//	
+//	@ResponseBody
+//	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.POST)
+//    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
+//        return todoService.saveTodo();
+//    }
+//	
+//	@ResponseBody
+//	@RequestMapping(value="{id}/refer/{referId}", method=RequestMethod.DELETE)
+//    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referId) {
+//        return todoService.saveTodo();
+//    }
 }
