@@ -3,8 +3,6 @@
  */
 package com.homework.todolist.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +18,8 @@ public class Todo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String task;
-	private Date createdOn;
-	private Date updatedOn;
+	private Long createdOn;
+	private Long updatedOn;
 	private Boolean isDone;
 	
 	public int getId() {
@@ -36,16 +34,16 @@ public class Todo {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public Date getCreatedOn() {
+	public Long getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(Date createdOn) {
+	public void setCreatedOn(Long createdOn) {
 		this.createdOn = createdOn;
 	}
-	public Date getUpdatedOn() {
+	public Long getUpdatedOn() {
 		return updatedOn;
 	}
-	public void setUpdatedOn(Date updatedOn) {
+	public void setUpdatedOn(Long updatedOn) {
 		this.updatedOn = updatedOn;
 	}
 	public Boolean getIsDone() {
