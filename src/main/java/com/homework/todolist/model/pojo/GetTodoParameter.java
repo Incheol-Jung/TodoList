@@ -3,14 +3,19 @@
  */
 package com.homework.todolist.model.pojo;
 
-import java.util.Date;
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.StringUtils;
 
 /**
  * @author Incheol Jung
  */
 public class GetTodoParameter {
 	private String task;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
 	private Date createdOn;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
 	private Date updatedOn;
 	private Integer pageSize;
 	private Integer pageNumber;
@@ -22,12 +27,14 @@ public class GetTodoParameter {
 		this.task = task;
 	}
 	public Date getCreatedOn() {
+//		return StringUtils.isEmpty(createdOn) ? null : Date.valueOf(createdOn);
 		return createdOn;
 	}
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 	public Date getUpdatedOn() {
+//		return StringUtils.isEmpty(updatedOn) ? null : Date.valueOf(updatedOn);
 		return updatedOn;
 	}
 	public void setUpdatedOn(Date updatedOn) {

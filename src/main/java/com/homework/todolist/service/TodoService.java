@@ -42,9 +42,14 @@ public class TodoService {
 	 * @return
 	 */
 	public List<Todo> getTodoList(GetTodoParameter parameter) {
+		Pageable paging = PageRequest.of(parameter.getPageNumber()-1, parameter.getPageSize());
+//		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCase(parameter.getTask(), paging);
+		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCaseAndCreatedOnAndUpdatedOn(
+												parameter.getTask()
+												, parameter.getCreatedOn()
+												, parameter.getUpdatedOn()
+												, paging);
 		
-		Pageable req = PageRequest.of(parameter.getPageNumber()-1, parameter.getPageSize());
-		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCase(parameter.getTask(), req);
 //		results.setRecCnt(result.getTotalElements());
 		return result.getContent();
 	}
