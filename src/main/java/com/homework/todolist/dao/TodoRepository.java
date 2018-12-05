@@ -3,7 +3,7 @@
  */
 package com.homework.todolist.dao;
 
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +17,6 @@ import com.homework.todolist.model.Todo;
 public interface TodoRepository extends CrudRepository<Todo, Integer>{
 //	Page<Todo> findByTaskContainingIgnoreCaseAndCreatedOnAndUpdatedOn(String task, Date createdOn, Date updatedOn, Pageable request);
 	Page<Todo>  findByTaskContainingIgnoreCase(String task, Pageable request);
+	boolean existsByIdIn(List<Integer> Ids);
+	Todo findOneById(Integer id);
 }
