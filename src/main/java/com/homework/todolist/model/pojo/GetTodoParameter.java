@@ -16,7 +16,7 @@ public class GetTodoParameter {
 	private Integer pageNumber;
 	
 	public String getTask() {
-		return task;
+		return task == null ? "" : task;
 	}
 	public void setTask(String task) {
 		this.task = task;
