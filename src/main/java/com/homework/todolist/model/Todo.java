@@ -3,7 +3,6 @@
  */
 package com.homework.todolist.model;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import io.swagger.annotations.ApiModelProperty;
+
 
 
 /**
@@ -26,20 +26,26 @@ public class Todo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(example="1")
 	private int id;
+	
+	@ApiModelProperty(example="task test 1")
 	private String task;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn;
+	@ApiModelProperty(example="1544055826168")
+	private Long createdOn;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedOn;
+	@ApiModelProperty(example="1544055826168")
+	private Long updatedOn;
 	
+	@ApiModelProperty(example="false")
 	private Boolean isDone;
+	
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="taskId", referencedColumnName="id")
 	private List<MapTodo> mapTodos;
-	
+
+	@ApiModelProperty(hidden=true)
 	public List<Integer> getReferenceIds() {
 		return mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());
 	}
@@ -56,22 +62,18 @@ public class Todo {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public Date getCreatedOn() {
+	public Long getCreatedOn() {
 		return createdOn;
 	}
-
-	public void setCreatedOn(Date createdOn) {
+	public void setCreatedOn(Long createdOn) {
 		this.createdOn = createdOn;
 	}
-
-	public Date getUpdatedOn() {
+	public Long getUpdatedOn() {
 		return updatedOn;
 	}
-
-	public void setUpdatedOn(Date updatedOn) {
+	public void setUpdatedOn(Long updatedOn) {
 		this.updatedOn = updatedOn;
 	}
-
 	public Boolean getIsDone() {
 		return isDone;
 	}

@@ -9,7 +9,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,7 @@ public class TodoService {
 	@Autowired
 	private TodoRepository todoRepository;
 	
+	
 	@Autowired
 	private MapTodoRepository mapTodoRepository;
 	
@@ -44,16 +44,15 @@ public class TodoService {
 	 */
 	public List<Todo> getTodoList(GetTodoParameter parameter) {
 		Pageable paging = PageRequest.of(parameter.getPageNumber()-1, parameter.getPageSize());
-//		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCase(parameter.getTask(), paging);
-		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCaseAndCreatedOnAndUpdatedOn(
-												parameter.getTask()
-												, parameter.getCreatedOn()
-												, parameter.getUpdatedOn()
-												, paging);
+//		Page<Todo> result = todoRepository.findByTaskContainingIgnoreCaseAndCreatedOnAndUpdatedOn(
+//												parameter.getTask()
+//												, parameter.getCreatedOn()
+//												, parameter.getUpdatedOn()
+//												, paging);
 		
 //		results.setRecCnt(result.getTotalElements());
-//		todoRepository.findReferenceIds();
-		return result.getContent();
+		List<Todo> result2 = todoRepository.findReferenceIds(parameter);
+		return result2;
 	}
 	
 	
@@ -106,7 +105,7 @@ public class TodoService {
 	 * @return
 	 */
 	private boolean checkTaskIds(List<Integer> Ids) {
-		return todoRepository.existsByIdIn(Ids);
+		return Ids.size() == todoRepository.countByIdIn(Ids);
 	}
 	
 	/**
