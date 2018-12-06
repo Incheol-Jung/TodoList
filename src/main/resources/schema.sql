@@ -1,13 +1,13 @@
 CREATE TABLE todo(
-  id      INT PRIMARY KEY,
-  task	VARCHAR(50),
-  createdOn	TIMESTAMP,
-  updatedOn	TIMESTAMP,
+  todoId      INT PRIMARY KEY,
+  title			VARCHAR(50),
+  createdDate	TIMESTAMP,
+  updatedDate	TIMESTAMP,
   isDone		bit
 );
 
 CREATE TABLE mapTodo(
-  id      INT PRIMARY KEY AUTO_INCREMENT,
-  taskId      	INT,
+  mapId      INT PRIMARY KEY AUTO_INCREMENT,
+  todoId      	INT,
   referenceId	INT
 );
