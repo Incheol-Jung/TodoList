@@ -30,7 +30,7 @@ public class TodoController {
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.GET)
     public List<Todo> getTodoList(GetTodoParameter parameter) {
-        return todoService.getTodoList(parameter);
+        return todoService.getTodos(parameter);
     }
 	
 	@ResponseBody

@@ -17,15 +17,14 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
     }
 	
 	@Override
-	public List<Todo> findReferenceIds(GetTodoParameter parameter){
+	public List<Todo> findTodos(GetTodoParameter parameter){
 		QTodo todo = QTodo.todo;
 		BooleanBuilder condition = new BooleanBuilder();
-		
 		condition.and(todo.task.contains(parameter.getTask()));
 		if(parameter.getCreatedOn() != null) {
 			condition.and(todo.createdOn.eq(parameter.getCreatedOn()));
 		}
-		if(parameter.getCreatedOn() != null) {
+		if(parameter.getUpdatedOn() != null) {
 			condition.and(todo.updatedOn.eq(parameter.getUpdatedOn()));
 		}
 		
