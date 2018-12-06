@@ -118,7 +118,7 @@ public class TodoService {
 			
 			if(mapTodo == null) {
 				mapTodo = new MapTodo();
-				mapTodo.setTaskId(id);
+				mapTodo.setTodoId(id);
 				mapTodo.setReferenceId(referenceId);
 				
 				mapTodoRepository.save(mapTodo);
