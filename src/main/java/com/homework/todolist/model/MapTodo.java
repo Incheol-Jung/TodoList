@@ -16,7 +16,7 @@ public class MapTodo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mapId;
-	private int taskId;
+	private int todoId;
 	private int referenceId;
 	
 	public int getMapId() {
@@ -25,11 +25,11 @@ public class MapTodo {
 	public void setMapId(int mapId) {
 		this.mapId = mapId;
 	}
-	public int getTaskId() {
-		return taskId;
+	public int getTodoId() {
+		return todoId;
 	}
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
+	public void setTodoId(int todoId) {
+		this.todoId = todoId;
 	}
 	public int getReferenceId() {
 		return referenceId;

@@ -27,22 +27,22 @@ public class Todo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(example="1")
-	private int id;
+	private int todoId;
 	
 	@ApiModelProperty(example="task test 1")
 	private String task;
 	
 	@ApiModelProperty(example="1544055826168")
-	private Long createdOn;
+	private Long createdDate;
 	
 	@ApiModelProperty(example="1544055826168")
-	private Long updatedOn;
+	private Long updatedDate;
 	
 	@ApiModelProperty(example="false")
 	private Boolean isDone;
 	
 	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="taskId", referencedColumnName="id")
+	@JoinColumn(name="todoId", referencedColumnName="todoId")
 	private List<MapTodo> mapTodos;
 
 	@ApiModelProperty(hidden=true)
@@ -50,11 +50,11 @@ public class Todo {
 		return mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());
 	}
 	
-	public int getId() {
-		return id;
+	public int getTodoId() {
+		return todoId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setTodoId(int todoId) {
+		this.todoId = todoId;
 	}
 	public String getTask() {
 		return task;
@@ -62,17 +62,17 @@ public class Todo {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public Long getCreatedOn() {
-		return createdOn;
+	public Long getCreatedDate() {
+		return createdDate;
 	}
-	public void setCreatedOn(Long createdOn) {
-		this.createdOn = createdOn;
+	public void setCreatedDate(Long createdDate) {
+		this.createdDate = createdDate;
 	}
-	public Long getUpdatedOn() {
-		return updatedOn;
+	public Long getUpdatedDate() {
+		return updatedDate;
 	}
-	public void setUpdatedOn(Long updatedOn) {
-		this.updatedOn = updatedOn;
+	public void setUpdatedDate(Long updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 	public Boolean getIsDone() {
 		return isDone;
@@ -80,5 +80,4 @@ public class Todo {
 	public void setIsDone(Boolean isDone) {
 		this.isDone = isDone;
 	}
-	
 }
