@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,8 @@ import com.homework.todolist.service.TodoService;
 /**
  * @author Incheol Jung
  */
-@Controller 
+@Controller
+@CrossOrigin
 @RequestMapping("/todo")
 public class TodoController {
 	
@@ -32,6 +34,11 @@ public class TodoController {
     public List<Todo> getTodoList(GetTodoParameter parameter) {
         return todoService.getTodos(parameter);
     }
+	
+//	@RequestMapping(value="", method=RequestMethod.GET)
+//    public String getTodoList(GetTodoParameter parameter) {
+//        return "index";
+//    }
 	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.POST)
