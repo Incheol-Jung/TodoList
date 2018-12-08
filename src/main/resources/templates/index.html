@@ -6,6 +6,8 @@
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
     </head>
     <body>
@@ -14,103 +16,242 @@
         3. 추가(참조가능)
         4. 삭제
         <button id="testBtn">test button</button>
+        <div class="search-container">
+            <div class="search-row">
+                <div class="search-column">
+                    <label>Task</label>
+                    <input>
+                </div>
+                <div class="search-column">
+                    <label>Created Date</label>
+                    <input>
+                </div>
+                <div class="search-column">
+                    <label>Updated Date</label>
+                    <input>
+                </div>
+            </div>
+            <div class="search-btn-row">
+                <button>Search</button>
+            </div>
+        </div>
         <div id="jsGrid"></div>
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="detailsDialog" aria-labelledby="ui-id-1" style="position: absolute;height: auto;width: 400px;top: 192px;left: 289px;display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">Edit Client</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">Close</span></button></div><div id="detailsDialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 93px; max-height: none; height: auto;">
+            <form id="detailsForm" novalidate="novalidate">
+                <div class="details-form-field">
+                    <label for="todoId">ID:</label>
+                    <input id="todoId" name="todoId" type="number" class="valid">
+                </div>
+                <div class="details-form-field">
+                    <label for="task">Task:</label>
+                    <input id="task" name="task" type="text" class="valid">
+                </div>
+                <div class="details-form-field">
+                    <label for="referenceIds">Reference Ids:</label>
+                    <input id="referenceIds" name="referenceIds" type="text" class="valid">
+                </div>
+                <div class="details-form-field">
+                    <label for="createdDate">Created Date:</label>
+                    <input id="createdDate" name="createdDate" type="text" class="valid">
+                </div>
+                <div class="details-form-field">
+                    <label for="updatedDate">Updated Date:</label>
+                    <input id="updatedDate" name="updatedDate" type="text" class="valid">
+                </div>
+                <div class="details-form-field">
+                    <label for="isDone">Is Done</label>
+                    <input id="isDone" name="isDone" type="checkbox">
+                </div>
+                <div class="details-form-field">
+                    <button type="submit" id="save">Save</button>
+                </div>
+            </form>
+        </div>
     </body>
     <script>
-        var clients = [
-            { "id": 1, "task": "Study", "referenceIds": [1,2,3,4], "createdDate": "2018-09-16 12:00:00", "updatedDate": "2018-09-16 12:00:00", "isDone": false },
-            { "id": 2, "task": "Java", "referenceIds": [1,], "createdDate": "2018-09-17 10:00:00", "updatedDate": "2018-09-16 12:00:00", "isDone": true },
-            { "id": 3, "task": "Spring", "referenceIds": [], "createdDate": "2018-09-18 11:00:00", "updatedDate": "2018-09-16 12:00:00", "isDone": true },
-            { "id": 4, "task": "C#", "referenceIds": [1,2,3], "createdDate": "2018-09-19 09:00:00", "updatedDate": "2018-09-16 12:00:00", "isDone": false }
-            ];
-     
-        var countries = [
-            { Name: "", Id: 0 },
-            { Name: "United States", Id: 1 },
-            { Name: "Canada", Id: 2 },
-            { Name: "United Kingdom", Id: 3 }
-        ];
+        $(function() {
 
-        $("#pager").on("change", function() {
-            var page = parseInt($(this).val(), 10);
-            $("#jsGrid").jsGrid("openPage", page);
-        });
-     
-        $("#jsGrid").jsGrid({
-            width: "100%",
-            height: "400px",
+            $("#pager").on("change", function() {
+                var page = parseInt($(this).val(), 10);
+                $("#jsGrid").jsGrid("openPage", page);
+            });
         
-            filtering: true,
-            sorting: true,
-            paging: true,
-            autoload: true,
-
-            pageIndex: 1,
-            pageSize: 10,
-            pageButtonCount: 10,
+            $("#jsGrid").jsGrid({
+                width: "100%",
+                height: "400px",
             
-            controller: {
-                loadData: function(parameters) {
-                    var d = $.Deferred();
-                    $.ajax({
-                        url: "http://localhost:29801/todo?pageNumber=0&pageSize=10",
-                        dataType: "json"
-                    }).done(function(response) {
-                        d.resolve(response.value);
-                    });
-    
-                    return d.promise();
-                }
-            },
+                editing: true,
+                autoload: true,
+                paging: true,
 
-     
-            fields: [
-                { name: "id", title: "ID", type: "number", width: 50, validate: "required" },
-                { name: "task", title: "Task", type: "text", width: 150 },
-                { name: "referenceIds", title: "Reference Ids", type: "text", width: 100,
-                    itemTemplate: function(value) {
-                        return $("<div>").append(Array(value).join("&#9733;"));
+                pageIndex: 1,
+                pageSize: 10,
+                pageButtonCount: 10,
+                
+                controller: {
+                    loadData: function(parameters) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            url: "http://localhost:29801/todos?pageNumber=0&pageSize=10"
+                            ,dataType: "json"
+                        }).done(function(response) {
+                            d.resolve(response.data);
+                        });
+        
+                        return d.promise();
+                    },
+                    insertItem: function(parameters) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            url: "http://localhost:29801/todos"
+                            ,type: "POST"
+                            ,contentType: "application/json; charset=utf-8"
+                            ,data: JSON.stringify(parameters)
+                            ,dataType: "json"
+                        }).done(function(response) {
+                            d.resolve(parameters);
+                        });
+        
+                        return d.promise();
+                    },
+                    updateItem: function(parameters) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            url: "http://localhost:29801/todo/"+parameters.todoId
+                            ,type: "PUT"
+                            ,contentType: "application/json; charset=utf-8"
+                            ,data: parameters
+                            ,dataType: "json"
+                        }).done(function(response) {
+                            d.resolve(response.value);
+                        });
+        
+                        return d.promise();
+                    },
+                    deleteItem: function(parameters) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            url: "http://localhost:29801/todo/"+parameters.todoId
+                            ,type: "DELETE"
+                            ,dataType: "json"
+                        }).done(function(response) {
+                            d.resolve(response.value);
+                        });
+        
+                        return d.promise();
                     }
-                 },
-                { name: "createdDate", title: "Created Date", type: "text", width: 200, readOnly:true  },
-                { name: "updatedDate", title: "Updated Date", type: "text", width: 200, readOnly:true },
-                { name: "isDone", type: "checkbox", title: "Done", sorting: false },
-                {
-                    type: "control",
-                    modeSwitchButton: false,
-                    editButton: false,
-                    headerTemplate: function() {
-                        return $("<button>").attr("type", "button").text("Add")
-                                .on("click", function () {
-                                    showDetailsDialog("Add", {});
-                                });
-                    }
-                }
-      
-            ],
-            onItemInserting: function(args) {
-                alert("onItemInserting");
-            },
-            onItemUpdating: function(args) {
-                alert("onItemUpdating");
-            },
-            onItemDeleting: function(args) {
-                alert("onItemDeleting");
-            },
-            onPageChanged: function(args) {
-                alert("onPageChanged");
-            },
-            onDataLoading: function(args) {
-                alert("onDataLoading");
-            },
-            rowClick: function(args) { 
-                alert("rowClick");
-            }
-        });
+                },
 
-        $("#testBtn").on("click", function(){
-            $("#jsGrid").jsGrid("loadData", { Name: "John" }).done(function() {
-                console.log("data loaded");
+        
+                fields: [
+                    { name: "todoId", title: "ID", type: "number", width: 50, validate: "required" },
+                    { name: "task", title: "Task", type: "text", width: 150 },
+                    { name: "referenceIds", title: "Reference Ids", type: "text", width: 100,
+                        itemTemplate: function(value) {
+                            return $("<div>").append(Array(value).join("&#9733;"));
+                        }
+                    },
+                    { name: "createdDate", title: "Created Date", type: "text", width: 200, readOnly:true  },
+                    { name: "updatedDate", title: "Updated Date", type: "text", width: 200, readOnly:true },
+                    { name: "isDone", type: "checkbox", title: "Done", sorting: false },
+                    {
+                        type: "control",
+                        modeSwitchButton: false,
+                        editButton: false,
+                        headerTemplate: function() {
+                            return $("<button>").attr("type", "button").text("Add")
+                                    .on("click", function () {
+                                        showDetailsDialog("Add", {});
+                                    });
+                        }
+                    }
+                ],
+                // onItemInserting: function(args) {
+                //     alert("onItemInserting");
+                // },
+                // onItemUpdating: function(args) {
+                //     alert("onItemUpdating");
+                // },
+                // onItemDeleting: function(args) {
+                //     alert("onItemDeleting");
+                // },
+                // onPageChanged: function(args) {
+                //     alert("onPageChanged");
+                // },
+                // onDataLoading: function(args) {
+                //     alert("onDataLoading");
+                // },
+                deleteConfirm: function(item) {
+                    return "The client \"" + item.Name + "\" will be removed. Are you sure?";
+                },
+                rowClick: function(args) {
+                    showDetailsDialog("Edit", args.item);
+                }
+            });
+
+            $("#detailsDialog").dialog({
+                autoOpen: false,
+                width: 400,
+                close: function() {
+                    $("#detailsForm").validate().resetForm();
+                    $("#detailsForm").find(".error").removeClass("error");
+                }
+            });
+
+            $("#detailsForm").validate({
+                rules: {
+                    name: "required",
+                    age: { required: true, range: [18, 150] },
+                    address: { required: true, minlength: 10 },
+                    country: "required"
+                },
+                messages: {
+                    name: "Please enter name",
+                    age: "Please enter valid age",
+                    address: "Please enter address (more than 10 chars)",
+                    country: "Please select country"
+                },
+                submitHandler: function() {
+                    formSubmitHandler();
+                }
+            });
+
+            var formSubmitHandler = $.noop;
+ 
+            var showDetailsDialog = function(dialogType, todo) {
+                $("#todoId").val(todo.todoId);
+                $("#task").val(todo.task);
+                $("#referenceIds").val(todo.referenceIds);
+                $("#createdDate").val(todo.createdDate);
+                $("#updatedDate").val(todo.updatedDate);
+                $("#isDone").prop("checked", todo.isDone);
+
+                formSubmitHandler = function() {
+                    saveClient(todo, dialogType === "Add");
+                };
+
+                $("#detailsDialog").dialog("option", "title", dialogType + " Client").dialog("open");
+            };
+
+            var saveClient = function(todo, isNew) {
+                $.extend(todo, {
+                    todoId: parseInt($("#todoId").val(), 10),
+                    task: $("#task").val(),
+                    referenceIds: null,
+                    createdDate: $("#createdDate").val(),
+                    updatedDate: $("#updatedDate").val(),
+                    isDone: $("#isDone").is(":checked")
+                });
+        
+                $("#jsGrid").jsGrid(isNew ? "insertItem" : "updateItem", todo);
+        
+                $("#detailsDialog").dialog("close");
+            };
+
+            $("#testBtn").on("click", function(){
+                $("#jsGrid").jsGrid("loadData", { Name: "John" }).done(function() {
+                    console.log("data loaded");
+                });
             });
         });
     </script>
