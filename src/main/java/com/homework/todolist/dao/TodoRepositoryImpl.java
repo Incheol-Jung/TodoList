@@ -21,11 +21,11 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 		QTodo todo = QTodo.todo;
 		BooleanBuilder condition = new BooleanBuilder();
 		condition.and(todo.task.contains(parameter.getTask()));
-		if(parameter.getCreatedOn() != null) {
-			condition.and(todo.createdOn.eq(parameter.getCreatedOn()));
+		if(parameter.getCreatedDate() != null) {
+			condition.and(todo.createdDate.eq(parameter.getCreatedDate()));
 		}
-		if(parameter.getUpdatedOn() != null) {
-			condition.and(todo.updatedOn.eq(parameter.getUpdatedOn()));
+		if(parameter.getUpdatedDate() != null) {
+			condition.and(todo.updatedDate.eq(parameter.getUpdatedDate()));
 		}
 		
 		QueryResults<Todo> result = from(todo)

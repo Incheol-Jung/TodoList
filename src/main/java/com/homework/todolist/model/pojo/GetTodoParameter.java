@@ -12,9 +12,9 @@ public class GetTodoParameter {
 	@ApiModelProperty(example="")
 	private String task;
 	@ApiModelProperty(example="1544055826168")
-	private Long createdOn;
+	private Long createdDate;
 	@ApiModelProperty(example="1544055826168")
-	private Long updatedOn;
+	private Long updatedDate;
 	@ApiModelProperty(example="10")
 	private Integer pageSize;
 	@ApiModelProperty(example="1")
@@ -26,17 +26,17 @@ public class GetTodoParameter {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public Long getCreatedOn() {
-		return createdOn;
+	public Long getCreatedDate() {
+		return createdDate;
 	}
-	public void setCreatedOn(Long createdOn) {
-		this.createdOn = createdOn;
+	public void setCreatedDate(Long createdDate) {
+		this.createdDate = createdDate;
 	}
-	public Long getUpdatedOn() {
-		return updatedOn;
+	public Long getUpdatedDate() {
+		return updatedDate;
 	}
-	public void setUpdatedOn(Long updatedOn) {
-		this.updatedOn = updatedOn;
+	public void setUpdatedDate(Long updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 	public Integer getPageSize() {
 		return (pageSize!=null && pageSize<0) ? 0 : pageSize;
