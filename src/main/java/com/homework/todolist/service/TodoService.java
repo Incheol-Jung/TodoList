@@ -75,7 +75,7 @@ public class TodoService {
 	@Transactional
 	public String finishTodo(Integer id, boolean isDone) {
 		String message = "success";
-		Todo todo = todoRepository.findOneById(id);
+		Todo todo = todoRepository.findOneByTodoId(id);
 		if(todo!= null) {
 			todo.setIsDone(isDone);
 			todoRepository.save(todo);
@@ -95,7 +95,7 @@ public class TodoService {
 	 * @return
 	 */
 	private boolean checkTaskIds(List<Integer> Ids) {
-		return Ids.size() == todoRepository.countByIdIn(Ids);
+		return Ids.size() == todoRepository.countByTodoIdIn(Ids);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class TodoService {
 	public String addReferenceId(Integer id, Integer referenceId) {
 		String message = "success";
 		if(this.checkTaskIds(Arrays.asList(id, referenceId))) {
-			MapTodo mapTodo = mapTodoRepository.findOneByTaskIdAndReferenceId(id, referenceId);
+			MapTodo mapTodo = mapTodoRepository.findOneByTodoIdAndReferenceId(id, referenceId);
 			
 			if(mapTodo == null) {
 				mapTodo = new MapTodo();
@@ -144,7 +144,7 @@ public class TodoService {
 	@Transactional
 	public String deleteReferenceId(Integer id, Integer referenceId) {
 		String message = "success";
-		Integer count =  mapTodoRepository.deleteByTaskIdAndReferenceId(id, referenceId);
+		Integer count =  mapTodoRepository.deleteByTodoIdAndReferenceId(id, referenceId);
 		
 		if(count == 0) {
 			message = "fail, there are no id, referenceId";

@@ -15,9 +15,8 @@ import com.homework.todolist.model.Todo;
  * @author Incheol Jung
  */
 public interface TodoRepository extends CrudRepository<Todo, Integer>, CustomTodoRepository{
-	Page<Todo> findByTaskContainingIgnoreCaseAndCreatedOnAndUpdatedOn(String task, Long createdOn, Long updatedOn, Pageable request);
 	Page<Todo> findByTaskContainingIgnoreCase(String task, Pageable request);
-	boolean existsByIdIn(List<Integer> Ids);
-	Integer countByIdIn(List<Integer> Ids);
-	Todo findOneById(Integer id);
+	boolean existsByTodoIdIn(List<Integer> countByTodoIdIns);
+	Integer countByTodoIdIn(List<Integer> Ids);
+	Todo findOneByTodoId(Integer countByTodoIdIn);
 }

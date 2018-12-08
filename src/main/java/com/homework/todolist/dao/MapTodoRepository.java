@@ -11,6 +11,6 @@ import com.homework.todolist.model.MapTodo;
  * @author Incheol Jung
  */
 public interface MapTodoRepository extends CrudRepository<MapTodo, Integer>{
-	MapTodo findOneByTaskIdAndReferenceId(Integer id, Integer referenceId);
-	Integer deleteByTaskIdAndReferenceId(Integer id, Integer referenceId);
+	MapTodo findOneByTodoIdAndReferenceId(Integer todoId, Integer referenceId);
+	Integer deleteByTodoIdAndReferenceId(Integer todoId, Integer referenceId);
 }
