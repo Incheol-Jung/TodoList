@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
+import com.homework.todolist.model.pojo.JsonResponse;
 import com.homework.todolist.service.TodoService;
 
 /**
@@ -23,7 +24,7 @@ import com.homework.todolist.service.TodoService;
  */
 @Controller
 @CrossOrigin
-@RequestMapping("/todo")
+@RequestMapping(value = "/todos", produces = "application/json")
 public class TodoController {
 	
 	@Autowired
@@ -31,8 +32,10 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.GET)
-    public List<Todo> getTodoList(GetTodoParameter parameter) {
-        return todoService.getTodos(parameter);
+    public JsonResponse<List<Todo>> getTodos(GetTodoParameter parameter) {
+		JsonResponse<List<Todo>> result = new JsonResponse<List<Todo>>();
+		result.setData(todoService.getTodos(parameter));
+        return result;
     }
 	
 //	@RequestMapping(value="", method=RequestMethod.GET)
@@ -42,8 +45,18 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.POST)
-    public String saveTodo(@RequestBody Todo todo) {
-        return todoService.saveTodo(todo);
+    public JsonResponse<String> insertTodo(@RequestBody Todo todo) {
+		JsonResponse<String> result = new JsonResponse<String>();
+		result.setData(todoService.saveTodo(todo));
+        return result;
+    }
+	
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+    public JsonResponse<String> updateTodo(@RequestBody Todo todo) {
+		JsonResponse<String> result = new JsonResponse<String>();
+		result.setData(todoService.saveTodo(todo));
+        return result;
     }
 	
 	@ResponseBody
