@@ -7,4 +7,5 @@ import com.homework.todolist.model.pojo.GetTodoParameter;
 
 public interface CustomTodoRepository {
 	List<Todo> findTodos(GetTodoParameter parameter);
+	boolean checkisDone(Integer todoId);
 }
