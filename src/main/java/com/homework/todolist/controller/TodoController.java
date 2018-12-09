@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
 import com.homework.todolist.model.pojo.JsonResponse;
+import com.homework.todolist.model.pojo.SaveTodo;
 import com.homework.todolist.service.TodoService;
 
 /**
@@ -30,6 +31,11 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 	
+//	@RequestMapping(value="", method=RequestMethod.GET)
+//    public String getTodoList(GetTodoParameter parameter) {
+//        return "index";
+//    }
+	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.GET)
     public JsonResponse<List<Todo>> getTodos(GetTodoParameter parameter) {
@@ -38,42 +44,45 @@ public class TodoController {
         return result;
     }
 	
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//    public String getTodoList(GetTodoParameter parameter) {
-//        return "index";
-//    }
-	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.POST)
-    public JsonResponse<String> insertTodo(@RequestBody Todo todo) {
+    public JsonResponse<String> insertTodo(@RequestBody SaveTodo parameter) {
 		JsonResponse<String> result = new JsonResponse<String>();
-		result.setData(todoService.saveTodo(todo));
+		result.setData(todoService.saveTodo(null, parameter));
         return result;
     }
 	
 	@ResponseBody
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public JsonResponse<String> updateTodo(@RequestBody Todo todo) {
+	@RequestMapping(value="/{todoId}", method=RequestMethod.PUT)
+    public JsonResponse<String> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodo parameter) {
 		JsonResponse<String> result = new JsonResponse<String>();
-		result.setData(todoService.saveTodo(todo));
+		result.setData(todoService.saveTodo(todoId, parameter));
         return result;
     }
 	
 	@ResponseBody
-	@RequestMapping(value="/{id}/finish/{isDone}", method=RequestMethod.POST)
-    public String finishTodo(@PathVariable Integer id, @PathVariable boolean isDone) {
-        return todoService.finishTodo(id, isDone);
-    }
-
-	@ResponseBody
-	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.POST)
-    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
-        return todoService.addReferenceId(id, referenceId);
+	@RequestMapping(value="/{todoId}", method=RequestMethod.DELETE)
+    public JsonResponse<String> deleteTodo(@PathVariable Integer todoId) {
+		JsonResponse<String> result = new JsonResponse<String>();
+		result.setData(todoService.deleteTodo(todoId));
+        return result;
     }
 	
-	@ResponseBody
-	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.DELETE)
-    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
-        return todoService.deleteReferenceId(id, referenceId);
-    }
+//	@ResponseBody
+//	@RequestMapping(value="/{id}/finish/{isDone}", method=RequestMethod.POST)
+//    public String finishTodo(@PathVariable Integer id, @PathVariable boolean isDone) {
+//        return todoService.finishTodo(id, isDone);
+//    }
+//
+//	@ResponseBody
+//	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.POST)
+//    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
+//        return todoService.addReferenceId(id, referenceId);
+//    }
+//	
+//	@ResponseBody
+//	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.DELETE)
+//    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
+//        return todoService.deleteReferenceId(id, referenceId);
+//    }
 }
