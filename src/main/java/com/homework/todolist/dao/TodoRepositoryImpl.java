@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import com.homework.todolist.model.QMapTodo;
 import com.homework.todolist.model.QTodo;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
@@ -16,9 +17,13 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
         super(Todo.class);
     }
 	
+	
+	
 	@Override
 	public List<Todo> findTodos(GetTodoParameter parameter){
 		QTodo todo = QTodo.todo;
+		QMapTodo mapTodo = QMapTodo.mapTodo;
+		
 		BooleanBuilder condition = new BooleanBuilder();
 		condition.and(todo.task.contains(parameter.getTask()));
 		if(parameter.getCreatedDate() != null) {
@@ -35,5 +40,18 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
                 .fetchResults();
 		
 		return result.getResults();
+	}
+	
+	@Override
+	public boolean checkisDone(Integer todoId) {
+		QTodo todo2 = QTodo.todo;
+		QMapTodo mapTodo = QMapTodo.mapTodo;
+
+		Long count = from(mapTodo)
+						.where(mapTodo.todoId.eq(todoId))
+						.innerJoin(todo2)
+						.on(mapTodo.referenceId.eq(todo2.todoId).and(todo2.isDone.eq(false)))
+						.fetchCount();
+		return count <= 0;
 	}
 }
