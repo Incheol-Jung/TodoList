@@ -1,34 +1,16 @@
 /**
  * 
  */
-package com.homework.todolist.model;
+package com.homework.todolist.model.pojo;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Cascade;
 
 import io.swagger.annotations.ApiModelProperty;
-
-
 
 /**
  * @author Incheol Jung
  */
-@Entity
-public class Todo {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class SaveTodo {
 	@ApiModelProperty(example="1")
 	private int todoId;
 	
@@ -44,42 +26,53 @@ public class Todo {
 	@ApiModelProperty(example="false")
 	private Boolean isDone;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="todoId", insertable = false, updatable = false)
-	private List<MapTodo> mapTodos;
+	private List<Integer> referenceIds;
 
-	public List<Integer> getReferenceIds() {
-		return mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());
-	}
-	
 	public int getTodoId() {
 		return todoId;
 	}
+
 	public void setTodoId(int todoId) {
 		this.todoId = todoId;
 	}
+
 	public String getTask() {
 		return task;
 	}
+
 	public void setTask(String task) {
 		this.task = task;
 	}
+
 	public Long getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Long createdDate) {
 		this.createdDate = createdDate;
 	}
+
 	public Long getUpdatedDate() {
 		return updatedDate;
 	}
+
 	public void setUpdatedDate(Long updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+
 	public Boolean getIsDone() {
 		return isDone;
 	}
+
 	public void setIsDone(Boolean isDone) {
 		this.isDone = isDone;
+	}
+
+	public List<Integer> getReferenceIds() {
+		return referenceIds;
+	}
+
+	public void setReferenceIds(List<Integer> referenceIds) {
+		this.referenceIds = referenceIds;
 	}
 }
