@@ -58,34 +58,55 @@ public class TodoService {
 	 * @author Incheol Jung
 	 * @param todo
 	 * @return
+	 * @throws Exception 
 	 */
 	@Transactional
-	public String saveTodo(Integer todoId, SaveTodo parameter) {
+	public Todo saveTodo(Integer todoId, SaveTodo parameter) throws Exception {
 		Todo todo = new Todo();
 		if(todoId != null) {
 			todo = todoRepository.findOneByTodoId(todoId);
 		}
 		
-		todo.setCreatedDate(parameter.getCreatedDate());
-		todo.setUpdatedDate(parameter.getUpdatedDate());
-		todo.setIsDone(parameter.getIsDone());
-		todo.setTask(parameter.getTask());
+		boolean check = CollectionUtils.isEmpty(parameter.getReferenceIds()) ? 
+							true : this.checkExistIds(parameter.getReferenceIds());
 		
-		todoRepository.save(todo);
-		mapTodoRepository.deleteByTodoId(todo.getTodoId());
-		if(!CollectionUtils.isEmpty(parameter.getReferenceIds())) {
-			List<MapTodo> list = new ArrayList<MapTodo>();
-			for(Integer referenceId: parameter.getReferenceIds()) {
-				MapTodo mapTodo = new MapTodo();
-				mapTodo.setTodoId(todo.getTodoId());
-				mapTodo.setReferenceId(referenceId);
-				list.add(mapTodo);
+		if(check) {
+			if(parameter.getIsDone()) {
+				boolean referenceIsDone = todoRepository.checkisDone(todo.getTodoId());
+				if(referenceIsDone != true) {
+					throw new Exception("Sorry, Reference tasks are done yet");
+				}
 			}
 			
-			mapTodoRepository.saveAll(list);
+			todo.setCreatedDate(parameter.getCreatedDate());
+			todo.setUpdatedDate(parameter.getUpdatedDate());
+			todo.setTask(parameter.getTask());
+			todo.setIsDone(parameter.getIsDone());
+			todoRepository.save(todo);
+			
+			if(todoId != null) mapTodoRepository.deleteByTodoId(todo.getTodoId());
+			
+			if(!CollectionUtils.isEmpty(parameter.getReferenceIds())) {
+				List<MapTodo> list = new ArrayList<MapTodo>();
+				for(Integer referenceId: parameter.getReferenceIds()) {
+					MapTodo mapTodo = new MapTodo();
+					mapTodo.setTodoId(todo.getTodoId());
+					mapTodo.setReferenceId(referenceId);
+					list.add(mapTodo);
+				}
+				mapTodoRepository.saveAll(list);
+			}
+			
+			return todo;
+		}else {
+			throw new Exception("Check Reference Ids");
 		}
-		
-		return "sucess";
+	}
+	
+	
+	public boolean checkExistIds(List<Integer> todoIds) {
+		Integer count = todoRepository.countByTodoIdIn(todoIds);
+		return (todoIds.size() == count);
 	}
 	
 	
