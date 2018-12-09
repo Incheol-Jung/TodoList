@@ -5,34 +5,35 @@
         <title>Todo List</title>
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/cupertino/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+        <script src="https://unpkg.com/moment"></script>
     </head>
     <body>
         1. 검색(조회, 페이징)
         2. 수정(참조가능)
         3. 추가(참조가능)
         4. 삭제
-        <button id="testBtn">test button</button>
         <div class="search-container">
             <div class="search-row">
                 <div class="search-column">
                     <label>Task</label>
-                    <input>
+                    <input type="text" id="search-task">
                 </div>
                 <div class="search-column">
                     <label>Created Date</label>
-                    <input>
+                    <input type="date" id="search-createdDate">
                 </div>
                 <div class="search-column">
                     <label>Updated Date</label>
-                    <input>
+                    <input type="date" id="search-updatedDate">
                 </div>
             </div>
             <div class="search-btn-row">
-                <button>Search</button>
+                <button id="testBtn">Search</button>
             </div>
         </div>
         <div id="jsGrid"></div>
@@ -40,7 +41,7 @@
             <form id="detailsForm" novalidate="novalidate">
                 <div class="details-form-field">
                     <label for="todoId">ID:</label>
-                    <input id="todoId" name="todoId" type="number" class="valid">
+                    <input id="todoId" name="todoId" type="number" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
                     <label for="task">Task:</label>
@@ -52,11 +53,11 @@
                 </div>
                 <div class="details-form-field">
                     <label for="createdDate">Created Date:</label>
-                    <input id="createdDate" name="createdDate" type="text" class="valid">
+                    <input id="createdDate" name="createdDate" type="text" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
                     <label for="updatedDate">Updated Date:</label>
-                    <input id="updatedDate" name="updatedDate" type="text" class="valid">
+                    <input id="updatedDate" name="updatedDate" type="text" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
                     <label for="isDone">Is Done</label>
@@ -92,10 +93,15 @@
                     loadData: function(parameters) {
                         var d = $.Deferred();
                         $.ajax({
-                            url: "http://localhost:29801/todos?pageNumber=0&pageSize=10"
+                            url: "http://localhost:29801/todos"
+                            ,data:parameters
                             ,dataType: "json"
                         }).done(function(response) {
-                            d.resolve(response.data);
+                            if(response.success) d.resolve(response.data);
+                            else {
+                                alert(response.message);
+                                d.reject();
+                            }
                         });
         
                         return d.promise();
@@ -109,7 +115,11 @@
                             ,data: JSON.stringify(parameters)
                             ,dataType: "json"
                         }).done(function(response) {
-                            d.resolve(parameters);
+                            if(response.success) d.resolve(response.data);
+                            else {
+                                alert(response.message);
+                                d.reject();
+                            }
                         });
         
                         return d.promise();
@@ -117,13 +127,17 @@
                     updateItem: function(parameters) {
                         var d = $.Deferred();
                         $.ajax({
-                            url: "http://localhost:29801/todo/"+parameters.todoId
+                            url: "http://localhost:29801/todos/"+parameters.todoId
                             ,type: "PUT"
                             ,contentType: "application/json; charset=utf-8"
-                            ,data: parameters
+                            ,data: JSON.stringify(parameters)
                             ,dataType: "json"
                         }).done(function(response) {
-                            d.resolve(response.value);
+                            if(response.success) d.resolve(response.data);
+                            else {
+                                alert(response.message);
+                                d.reject();
+                            }
                         });
         
                         return d.promise();
@@ -131,11 +145,15 @@
                     deleteItem: function(parameters) {
                         var d = $.Deferred();
                         $.ajax({
-                            url: "http://localhost:29801/todo/"+parameters.todoId
+                            url: "http://localhost:29801/todos/"+parameters.todoId
                             ,type: "DELETE"
                             ,dataType: "json"
                         }).done(function(response) {
-                            d.resolve(response.value);
+                            if(response.success) d.resolve(response.data);
+                            else {
+                                alert(response.message);
+                                d.reject();
+                            }
                         });
         
                         return d.promise();
@@ -148,11 +166,19 @@
                     { name: "task", title: "Task", type: "text", width: 150 },
                     { name: "referenceIds", title: "Reference Ids", type: "text", width: 100,
                         itemTemplate: function(value) {
-                            return $("<div>").append(Array(value).join("&#9733;"));
+                            return jQuery.isEmptyObject(value) ? "" : value.map(id => '@'+id+'&nbsp;');
                         }
                     },
-                    { name: "createdDate", title: "Created Date", type: "text", width: 200, readOnly:true  },
-                    { name: "updatedDate", title: "Updated Date", type: "text", width: 200, readOnly:true },
+                    { name: "createdDate", title: "Created Date", type: "text", width: 200, readOnly:true,
+                        itemTemplate: function(value) {
+                            return $("<div>").append(moment(value).format("YYYY-MM-DD HH:mm:ss"));
+                        }  
+                    },
+                    { name: "updatedDate", title: "Updated Date", type: "text", width: 200, readOnly:true,
+                        itemTemplate: function(value) {
+                            return $("<div>").append(moment(value).format("YYYY-MM-DD HH:mm:ss"));
+                        }  
+                     },
                     { name: "isDone", type: "checkbox", title: "Done", sorting: false },
                     {
                         type: "control",
@@ -200,16 +226,12 @@
 
             $("#detailsForm").validate({
                 rules: {
-                    name: "required",
-                    age: { required: true, range: [18, 150] },
-                    address: { required: true, minlength: 10 },
-                    country: "required"
+                    task: { 
+                        required: true
+                    }
                 },
                 messages: {
-                    name: "Please enter name",
-                    age: "Please enter valid age",
-                    address: "Please enter address (more than 10 chars)",
-                    country: "Please select country"
+                    task: "vaildation failed"
                 },
                 submitHandler: function() {
                     formSubmitHandler();
@@ -222,12 +244,25 @@
                 $("#todoId").val(todo.todoId);
                 $("#task").val(todo.task);
                 $("#referenceIds").val(todo.referenceIds);
-                $("#createdDate").val(todo.createdDate);
-                $("#updatedDate").val(todo.updatedDate);
+                $("#createdDate").val(moment(todo.createdDate).format("YYYY-MM-DD HH:mm:ss"));
+                $("#updatedDate").val(moment(todo.updatedDate).format("YYYY-MM-DD HH:mm:ss"));    
                 $("#isDone").prop("checked", todo.isDone);
 
                 formSubmitHandler = function() {
-                    saveClient(todo, dialogType === "Add");
+                    if(/^(\d|,)*\.?\d*$/.test($("#referenceIds").val())){
+                        var array = $("#referenceIds").val().split(",").map(Number);
+                        var index = array.indexOf(parseInt($("#todoId").val()));
+                        if(index === -1){
+                            saveClient(todo, dialogType === "Add");
+                        }else{
+                            $("#detailsForm").validate().resetForm();
+                            alert("fail!!");
+                        }
+                    }else{
+                        $("#detailsForm").validate().resetForm();
+                        alert("fail!!");
+                    }
+                    
                 };
 
                 $("#detailsDialog").dialog("option", "title", dialogType + " Client").dialog("open");
@@ -237,9 +272,9 @@
                 $.extend(todo, {
                     todoId: parseInt($("#todoId").val(), 10),
                     task: $("#task").val(),
-                    referenceIds: null,
-                    createdDate: $("#createdDate").val(),
-                    updatedDate: $("#updatedDate").val(),
+                    referenceIds: $("#referenceIds").val()? $("#referenceIds").val().split(",").map(Number) : null,
+                    createdDate: isNew ? new Date().getTime() : todo.createdDate,
+                    updatedDate: new Date().getTime(),
                     isDone: $("#isDone").is(":checked")
                 });
         
@@ -249,7 +284,12 @@
             };
 
             $("#testBtn").on("click", function(){
-                $("#jsGrid").jsGrid("loadData", { Name: "John" }).done(function() {
+                var searchCondition = {
+                    task: $("#search-task").val(),
+                    createdDate: $("#search-createdDate").val() ? new Date($("#search-createdDate").val()).getTime() : null,
+                    updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null
+                }
+                $("#jsGrid").jsGrid("loadData", searchCondition).done(function() {
                     console.log("data loaded");
                 });
             });
