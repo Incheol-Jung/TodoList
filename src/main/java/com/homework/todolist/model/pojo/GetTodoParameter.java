@@ -39,13 +39,13 @@ public class GetTodoParameter {
 		this.updatedDate = updatedDate;
 	}
 	public Integer getPageSize() {
-		return (pageSize!=null && pageSize<0) ? 0 : pageSize;
+		return (pageSize == null || pageSize<0) ? 10 : pageSize;
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 	public Integer getPageNumber() {
-		return (pageNumber!=null && pageNumber<1) ? 1 : pageNumber;
+		return (pageNumber==null || pageNumber<0) ? 0 : pageNumber;
 	}
 	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
