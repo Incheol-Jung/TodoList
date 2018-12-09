@@ -3,6 +3,7 @@
  */
 package com.homework.todolist.model;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +49,11 @@ public class Todo {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="todoId", insertable = false, updatable = false)
 	private List<MapTodo> mapTodos;
+	
+	@Transient
+	public void setMapTodos(List<MapTodo> mapTodos) {
+		this.mapTodos = mapTodos;
+	}
 
 	public List<Integer> getReferenceIds() {
 		return CollectionUtils.isEmpty(mapTodos) ? new ArrayList<Integer>() : mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());

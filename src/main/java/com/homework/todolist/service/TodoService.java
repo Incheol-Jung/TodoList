@@ -95,6 +95,7 @@ public class TodoService {
 					list.add(mapTodo);
 				}
 				mapTodoRepository.saveAll(list);
+				todo.setMapTodos(list);
 			}
 			
 			return todo;
