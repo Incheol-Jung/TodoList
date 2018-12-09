@@ -10,6 +10,10 @@ public class JsonResponse<T> implements Serializable {
 	private String message;
 	private T data;
 	
+	public JsonResponse(){
+		this.success = true;
+	}
+	
 	public boolean isSuccess() {
 		return success;
 	}
