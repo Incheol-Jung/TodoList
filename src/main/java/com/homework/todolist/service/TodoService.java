@@ -3,6 +3,7 @@
  */
 package com.homework.todolist.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,12 +11,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.homework.todolist.dao.MapTodoRepository;
 import com.homework.todolist.dao.TodoRepository;
 import com.homework.todolist.model.MapTodo;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
+import com.homework.todolist.model.pojo.SaveTodo;
 
 
 /**
@@ -57,9 +60,48 @@ public class TodoService {
 	 * @return
 	 */
 	@Transactional
-	public String saveTodo(Todo todo) {
+	public String saveTodo(Integer todoId, SaveTodo parameter) {
+		Todo todo = new Todo();
+		if(todoId != null) {
+			todo = todoRepository.findOneByTodoId(todoId);
+		}
+		
+		todo.setCreatedDate(parameter.getCreatedDate());
+		todo.setUpdatedDate(parameter.getUpdatedDate());
+		todo.setIsDone(parameter.getIsDone());
+		todo.setTask(parameter.getTask());
+		
 		todoRepository.save(todo);
+		mapTodoRepository.deleteByTodoId(todo.getTodoId());
+		if(!CollectionUtils.isEmpty(parameter.getReferenceIds())) {
+			List<MapTodo> list = new ArrayList<MapTodo>();
+			for(Integer referenceId: parameter.getReferenceIds()) {
+				MapTodo mapTodo = new MapTodo();
+				mapTodo.setTodoId(todo.getTodoId());
+				mapTodo.setReferenceId(referenceId);
+				list.add(mapTodo);
+			}
+			
+			mapTodoRepository.saveAll(list);
+		}
+		
 		return "sucess";
+	}
+	
+	
+	/**
+	 * 
+	 * delete Todo
+	 * 
+	 * @since 2018. 12. 9.
+	 * @author Incheol Jung
+	 * @param todoId
+	 * @return
+	 */
+	@Transactional
+	public String deleteTodo(Integer todoId) {
+		todoRepository.deleteById(todoId);
+		return "success";
 	}
 	
 	/**
