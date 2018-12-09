@@ -1,5 +1,5 @@
 CREATE TABLE todo(
-  todoId      INT PRIMARY KEY,
+  todoId      INT PRIMARY KEY AUTO_INCREMENT,
   title			VARCHAR(50),
   createdDate	TIMESTAMP,
   updatedDate	TIMESTAMP,
