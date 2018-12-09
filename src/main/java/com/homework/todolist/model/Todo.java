@@ -3,6 +3,7 @@
  */
 package com.homework.todolist.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cascade;
+import org.springframework.util.CollectionUtils;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -49,7 +50,7 @@ public class Todo {
 	private List<MapTodo> mapTodos;
 
 	public List<Integer> getReferenceIds() {
-		return mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());
+		return CollectionUtils.isEmpty(mapTodos) ? new ArrayList<Integer>() : mapTodos.stream().map(m -> m.getReferenceId()).collect(Collectors.toList());
 	}
 	
 	public int getTodoId() {
