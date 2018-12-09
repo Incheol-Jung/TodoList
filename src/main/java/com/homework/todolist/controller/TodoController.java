@@ -46,16 +46,16 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value="", method=RequestMethod.POST)
-    public JsonResponse<String> insertTodo(@RequestBody SaveTodo parameter) {
-		JsonResponse<String> result = new JsonResponse<String>();
+    public JsonResponse<Todo> insertTodo(@RequestBody SaveTodo parameter) throws Exception {
+		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(null, parameter));
         return result;
     }
 	
 	@ResponseBody
 	@RequestMapping(value="/{todoId}", method=RequestMethod.PUT)
-    public JsonResponse<String> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodo parameter) {
-		JsonResponse<String> result = new JsonResponse<String>();
+    public JsonResponse<Todo> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodo parameter) throws Exception {
+		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(todoId, parameter));
         return result;
     }
