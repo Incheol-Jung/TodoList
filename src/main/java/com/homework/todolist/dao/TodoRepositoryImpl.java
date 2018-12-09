@@ -22,10 +22,10 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 		BooleanBuilder condition = new BooleanBuilder();
 		condition.and(todo.task.contains(parameter.getTask()));
 		if(parameter.getCreatedDate() != null) {
-			condition.and(todo.createdDate.eq(parameter.getCreatedDate()));
+			condition.and(todo.createdDate.between(parameter.getCreatedDate(),parameter.getCreatedDate()+ 60 * 60 * 24 * 1000));
 		}
 		if(parameter.getUpdatedDate() != null) {
-			condition.and(todo.updatedDate.eq(parameter.getUpdatedDate()));
+			condition.and(todo.updatedDate.between(parameter.getUpdatedDate(),parameter.getUpdatedDate()+ 60 * 60 * 24 * 1000));
 		}
 		
 		QueryResults<Todo> result = from(todo)
