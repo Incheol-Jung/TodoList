@@ -17,22 +17,25 @@ $ mvn spring-boot:run
 ## How to use?
 - Search<br/>
 You can retrieve data by adding various conditions.(Task, Created Date, Updated Date)<br/>
-![Search]({{site.baseurl}}//Search.PNG)<br/><br/>
+{Picture}<br/><br/>
 
 - Create/Insert<br/>
-You can create or modify tasks.<br/><br/>
+You can create or modify tasks.<br/>
+{Picture}<br/><br/>
 
 - Pagination<br/>
-The list implements the paging function and has a **page size of 5**.<br/><br/>
+The list implements the paging function and has a **page size of 5**.<br/>
+{Picture}<br/><br/>
 
 - Validation <br/>
 If you create or modify a task without typing, a warning message appears. <br/>
-To add ReferenceIds, type '{number},' in text box, or do not allow input values.<br/><br/>
+To add ReferenceIds, type '{number},' in text box, or do not allow input values.<br/>
+{Picture}<br/><br/>
 
 ## Strategies
 
 ### Environment
-- BackEnd : SpringBoot
+- BackEnd : jdk1.8, SpringBoot
 - FrontEnd : html, JSGrid(Javascript)
 - DB : h2 inmemory DB
 
