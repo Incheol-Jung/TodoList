@@ -41,20 +41,20 @@ Response :
 	"message": null,
 	"data": [
 				{
-					"id": 26,
-					"task": "study java",
-					"createdOn": "2018-05-45 12:00:00",
-					"updatedOn": "2018-05-45 12:00:00",
-					"isDone": true,
-					"referenceIds": [1,2,3,4]
+				"id": 26,
+				"task": "study java",
+				"createdOn": "2018-05-45 12:00:00",
+				"updatedOn": "2018-05-45 12:00:00",
+				"isDone": true,
+				"referenceIds": [1,2,3,4]
 				},
 				{
-					"id": 27,
-					"task": "study angular",
-					"createdOn": "2018-05-45 12:00:00",
-					"updatedOn": null,
-					"isDone": false,
-					"referenceIds": [1]
+				"id": 27,
+				"task": "study angular",
+				"createdOn": "2018-05-45 12:00:00",
+				"updatedOn": null,
+				"isDone": false,
+				"referenceIds": [1]
 				}
 			]
 }
@@ -70,7 +70,7 @@ Request :
 	"pageSize": 10,
 	"pageNumber": 1,
 	"task": "study",
-    "referenceIds": [1,2,3,4],
+    	"referenceIds": [1,2,3,4],
 	"createdOn": "2018-05-45 12:00:00",
 	"updatedOn": "2018-05-45 12:00:00"
 }
@@ -94,7 +94,7 @@ Request :
 	"pageSize": 10,
 	"pageNumber": 1,
 	"task": "study",
-    "referenceIds": [1,2,3,4],
+    	"referenceIds": [1,2,3,4],
 	"createdOn": "2018-05-45 12:00:00",
 	"updatedOn": "2018-05-45 12:00:00"
 }
