@@ -464,6 +464,7 @@
                 close: function() {
                     $('#task-validationMsg').text("");
                     $('#referIds-validationMsg').text("");
+                    $("#isDone").prop("checked",false);
                     $("#detailsForm").validate().resetForm();
                     $("#detailsForm").find(".error").removeClass("error");
                 }
@@ -476,6 +477,7 @@
                 resetForm: function() {
                     $('#task-validationMsg').text("");
                     $('#referIds-validationMsg').text("");
+                    $("#isDone").prop("checked",false);
                 }
             });
 
