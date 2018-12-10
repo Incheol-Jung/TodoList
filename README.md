@@ -2,7 +2,9 @@
 [Blogs](https://jung-inchul.github.io/)
 
 ## Installation
-> mvn install 
+```
+$ mvn install
+```
 
 
 
