@@ -42,7 +42,7 @@ picTure!!!!
 
 ### API Specification
 
-Url : localhost:29801/todos <br />
+**Url : localhost:29801/todos <br />**
 Method : GET <br />
 Description : Get Todos <br />
 Request : 
@@ -82,7 +82,7 @@ Response :
 ```
 <br />
 
-Url : localhost:29801/todos <br />
+**Url : localhost:29801/todos <br />**
 Method : POST <br />
 Description : Insert todo <br />
 Request : 
@@ -106,7 +106,7 @@ Response :
 ```
 <br />
 
-Url : localhost:29801/todos/{todoId} <br />
+**Url : localhost:29801/todos/{todoId} <br />**
 Method : PUT <br />
 Description : Update todo <br />
 Request : 
@@ -130,7 +130,7 @@ Response :
 ```
 <br />
 
-Url : localhost:29801/todos/{todoId} <br />
+**Url : localhost:29801/todos/{todoId} <br />**
 Method : DELETE <br />
 Description : Delete todo <br />
 Response :
