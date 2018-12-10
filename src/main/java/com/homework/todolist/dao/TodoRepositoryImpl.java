@@ -3,6 +3,7 @@ package com.homework.todolist.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.util.CollectionUtils;
 
 import com.homework.todolist.model.QMapTodo;
 import com.homework.todolist.model.QTodo;
@@ -17,13 +18,11 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
         super(Todo.class);
     }
 	
-	
+	private QTodo todo = QTodo.todo;
+	private QMapTodo mapTodo = QMapTodo.mapTodo;
 	
 	@Override
-	public List<Todo> findTodos(GetTodoParameter parameter){
-		QTodo todo = QTodo.todo;
-		QMapTodo mapTodo = QMapTodo.mapTodo;
-		
+	public QueryResults<Todo> findTodos(GetTodoParameter parameter){
 		BooleanBuilder condition = new BooleanBuilder();
 		condition.and(todo.task.contains(parameter.getTask()));
 		if(parameter.getCreatedDate() != null) {
@@ -35,22 +34,29 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 		
 		QueryResults<Todo> result = from(todo)
 				.where(condition)
-                .offset(parameter.getPageNumber()) 
-                .limit(parameter.getPageSize()) 
+                .offset((parameter.getPageIndex()-1)*parameter.getPageSize()) 
+                .limit(parameter.getPageIndex()*parameter.getPageSize()) 
                 .fetchResults();
 		
-		return result.getResults();
+		return result;
 	}
 	
 	@Override
-	public boolean checkisDone(Integer todoId) {
-		QTodo todo2 = QTodo.todo;
-		QMapTodo mapTodo = QMapTodo.mapTodo;
-
+	public boolean checkisDonewithTodoId(Integer todoId) {
 		Long count = from(mapTodo)
 						.where(mapTodo.todoId.eq(todoId))
-						.innerJoin(todo2)
-						.on(mapTodo.referenceId.eq(todo2.todoId).and(todo2.isDone.eq(false)))
+						.innerJoin(todo)
+						.on(mapTodo.referenceId.eq(todo.todoId).and(todo.isDone.eq(false)))
+						.fetchCount();
+		return count <= 0;
+	}
+	
+	@Override
+	public boolean checkisDonewithReferenceIds(List<Integer> referenceIds) {
+		if(CollectionUtils.isEmpty(referenceIds)) return true;
+		
+		Long count = from(todo)
+						.where(todo.todoId.in(referenceIds).and(todo.isDone.eq(false)))
 						.fetchCount();
 		return count <= 0;
 	}
