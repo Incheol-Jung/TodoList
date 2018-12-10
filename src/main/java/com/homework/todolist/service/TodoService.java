@@ -36,9 +36,9 @@ public class TodoService {
 	
 	/**
 	 * 
-	 * Get TodoList
+	 * get todos using querydsl
 	 * 
-	 * @since 2018. 12. 5.
+	 * @since 2018. 12. 10.
 	 * @author Incheol Jung
 	 * @param parameter
 	 * @return
@@ -53,13 +53,14 @@ public class TodoService {
 	
 	/**
 	 * 
-	 * save Todo
+	 * save todo (check reference ids and if todo want to be done, check reference ids are done)
 	 * 
-	 * @since 2018. 12. 5.
+	 * @since 2018. 12. 10.
 	 * @author Incheol Jung
-	 * @param todo
+	 * @param todoId
+	 * @param parameter
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Transactional
 	public Todo saveTodo(Integer todoId, SaveTodo parameter) throws Exception {
@@ -68,45 +69,91 @@ public class TodoService {
 			todo = todoRepository.findOneByTodoId(todoId);
 		}
 		
-		boolean check = CollectionUtils.isEmpty(parameter.getReferenceIds()) ? 
-							true : this.checkExistIds(parameter.getReferenceIds());
+		boolean checkExistIds = CollectionUtils.isEmpty(parameter.getReferenceIds()) ? true : this.checkExistIds(parameter.getReferenceIds());
 		
-		if(check) {
-			if(parameter.getIsDone()) {
-				boolean referenceIsDone = todoRepository.checkisDonewithReferenceIds(parameter.getReferenceIds());
-				if(referenceIsDone != true) {
-					throw new Exception("Sorry, Reference tasks are done yet");
-				}
+		if(checkExistIds) {
+			this.checkIsDone4ReferenceIds(parameter.getIsDone(), parameter.getReferenceIds());
+			todo = this.saveTodo(todo, parameter);
+
+			if(todoId != null) {
+				mapTodoRepository.deleteByTodoId(todo.getTodoId());
 			}
 			
-			todo.setCreatedDate(parameter.getCreatedDate());
-			todo.setUpdatedDate(parameter.getUpdatedDate());
-			todo.setTask(parameter.getTask());
-			todo.setIsDone(parameter.getIsDone());
-			todoRepository.save(todo);
-			
-			if(todoId != null) mapTodoRepository.deleteByTodoId(todo.getTodoId());
-			
-			if(!CollectionUtils.isEmpty(parameter.getReferenceIds())) {
-				List<MapTodo> list = new ArrayList<MapTodo>();
-				for(Integer referenceId: parameter.getReferenceIds()) {
-					MapTodo mapTodo = new MapTodo();
-					mapTodo.setTodoId(todo.getTodoId());
-					mapTodo.setReferenceId(referenceId);
-					list.add(mapTodo);
-				}
-				mapTodoRepository.saveAll(list);
-				todo.setMapTodos(list);
-			}
-			
-			return todo;
+			return this.saveMapTodos(todo, parameter.getReferenceIds());
 		}else {
-			throw new Exception("Check Reference Ids");
+			throw new Exception("these Reference Ids are not allowed");
 		}
 	}
 	
 	/**
 	 * 
+	 * save maptodos using referenceIds
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
+	 * @param todo
+	 * @param referenceIds
+	 * @return
+	 */
+	private Todo saveMapTodos(Todo todo, List<Integer> referenceIds) {
+		if(!CollectionUtils.isEmpty(referenceIds)) {
+			List<MapTodo> list = new ArrayList<MapTodo>();
+			for(Integer referenceId: referenceIds) {
+				MapTodo mapTodo = new MapTodo();
+				mapTodo.setTodoId(todo.getTodoId());
+				mapTodo.setReferenceId(referenceId);
+				list.add(mapTodo);
+			}
+			mapTodoRepository.saveAll(list);
+			todo.setMapTodos(list);
+		}
+		return todo;
+	}
+	
+	/**
+	 * 
+	 * check isDone of reference tasks
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
+	 * @param isDone
+	 * @param referenceIds
+	 * @throws Exception
+	 */
+	private void checkIsDone4ReferenceIds(boolean isDone, List<Integer> referenceIds) throws Exception {
+		if(isDone && !CollectionUtils.isEmpty(referenceIds)) {
+			boolean referenceIsDone = todoRepository.checkisDonewithReferenceIds(referenceIds);
+			if(referenceIsDone != true) {
+				throw new Exception("Sorry, Reference tasks are done yet");
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * save todo
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
+	 * @param todo
+	 * @param parameter
+	 * @return
+	 */
+	private Todo saveTodo(Todo todo, SaveTodo parameter) {
+		todo.setCreatedDate(parameter.getCreatedDate());
+		todo.setUpdatedDate(parameter.getUpdatedDate());
+		todo.setTask(parameter.getTask());
+		todo.setIsDone(parameter.getIsDone());
+		
+		return todoRepository.save(todo);
+	}
+	
+	/**
+	 * 
+	 * check ids are exists
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
 	 * @param todoIds
 	 * @return
 	 */

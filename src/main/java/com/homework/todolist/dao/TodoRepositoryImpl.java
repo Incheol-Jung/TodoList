@@ -19,6 +19,15 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 	
 	private QTodo todo = QTodo.todo;
 	
+	/**
+	 * 
+	 * select * from todos where createdDate and updatedDate and task;
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
+	 * @param parameter
+	 * @return
+	 */
 	@Override
 	public QueryResults<Todo> findTodos(GetTodoParameter parameter){
 		BooleanBuilder condition = new BooleanBuilder();
@@ -39,6 +48,15 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 		return result;
 	}
 	
+	/**
+	 * 
+	 * select count(*) from todo where todo in referenceIds and isDone = true
+	 * 
+	 * @since 2018. 12. 10.
+	 * @author Incheol Jung
+	 * @param referenceIds
+	 * @return
+	 */
 	@Override
 	public boolean checkisDonewithReferenceIds(List<Integer> referenceIds) {
 		if(CollectionUtils.isEmpty(referenceIds)) return true;

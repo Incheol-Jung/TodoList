@@ -3,7 +3,6 @@ package com.homework.todolist.utility;
 import java.io.OutputStream;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +16,6 @@ import org.springframework.aop.ThrowsAdvice;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.homework.todolist.model.pojo.JsonResponse;
@@ -41,18 +39,11 @@ public class SetterMonitor implements ThrowsAdvice {
 	    String exceptionMsg = e.getMessage();
 	    
 	    for (Object obj : joinPoint.getArgs()) {
-	    	if (obj instanceof HttpServletRequest) {
-	    		HttpServletRequest req = (HttpServletRequest) obj;
-			}else if(obj instanceof MultipartFile) {
-				MultipartFile file = (MultipartFile) obj;
-				keyBuilder.append("{fileName : " + file.getOriginalFilename() + "}");
-			}else {
-				try {
-					Map<String, Object> map = oMapper.convertValue(obj, Map.class);
-					keyBuilder.append("{" + map.toString() + "}");
-				}catch(Exception ex) {
-					if(obj != null) keyBuilder.append(obj.toString());
-				}
+			try {
+				Map<String, Object> map = oMapper.convertValue(obj, Map.class);
+				keyBuilder.append("{" + map.toString() + "}");
+			}catch(Exception ex) {
+				if(obj != null) keyBuilder.append(obj.toString());
 			}
 	    }
 	    
