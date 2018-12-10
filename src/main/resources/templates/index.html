@@ -11,17 +11,231 @@
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
         <script src="https://unpkg.com/moment"></script>
+        <style>
+            .search-container{
+                display: block;
+                width: 97%;
+                min-width: 800px;
+                border: 1px solid #bbb;
+                padding: 18px 20px 13px;
+                background: #f5f5f5;
+                border-radius: 2px;
+                height:70px;
+            }
+            table tr.todo-Done td{
+                color:#bfbfbf;
+            }
+            .search-row{
+                display: table;
+                width: 100%;
+            }
+            .search-row .search-column{
+                display: table-cell;
+                padding-right: 25px;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                width: 200px;
+                vertical-align: top;
+            }
+            .search-row .search-column:last-child{
+                vertical-align: bottom;
+                text-align: right;
+            }
+            .search-row .search-column label{
+                display: block;
+                height: 15px;
+                padding-bottom: 5px;
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 15px;
+                -webkit-box-sizing: content-box;
+                box-sizing: content-box;
+            }
+            .search-row input{
+                display: inline-block;
+                vertical-align: middle;
+                padding: 6px 12px;
+                font-size: 13px;
+                line-height: 13px;
+                color: #666;
+                border: 1px solid #bbb;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                width:70%;
+            }
+            #jsGrid{
+                margin-top:20px;
+            }
+            .detailsForm{
+
+            }
+            #detailsForm .details-form-field{
+                margin-bottom:10px;
+            }
+            #detailsForm label{
+                height: 15px;
+                padding-bottom: 5px;
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 15px;
+                -webkit-box-sizing: content-box;
+                box-sizing: content-box;
+            }
+            #detailsForm input{
+                display: inline-block;
+                vertical-align: middle;
+                padding: 8px 12px;
+                font-size: 13px;
+                line-height: 13px;
+                color: #666;
+                border: 1px solid #bbb;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                width:90%;
+                
+            }
+            .container {
+                display: block;
+                position: relative;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                height:40px !important;
+            }
+
+            /* Hide the browser's default checkbox */
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+            #detailsForm .validMsg{
+                font-size: 9px;
+                float: right;
+                margin: 4px 8px;
+                color: red;
+            }
+
+            /* Create a custom checkbox */
+            .checkmark {
+                position: absolute;
+                top: 18px;
+                left: 0;
+                height: 25px;
+                width: 25px;
+                background-color: #fff;
+                border: 1px solid #bbb;
+            }
+
+            /* On mouse-over, add a grey background color */
+            .container:hover input ~ .checkmark {
+                background-color: #c9e7f5;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            .container input:checked ~ .checkmark {
+                background-color: #2196F3;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the checkmark when checked */
+            .container input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            /* Style the checkmark/indicator */
+            .container .checkmark:after {
+                left: 9px;
+                top: 5px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            .jsgrid-header-row>.jsgrid-header-cell{
+                font-size:14px;
+                
+            }
+            .myButton {
+                -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
+                -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
+                box-shadow: 0px 0px 0px 2px #9fb4f2;
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #476e9e));
+                background:-moz-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+                background:-webkit-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+                background:-o-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+                background:-ms-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+                background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#476e9e',GradientType=0);
+                background-color:#7892c2;
+                -moz-border-radius:3px;
+                -webkit-border-radius:3px;
+                border:1px solid #4e6096;
+                display:inline-block;
+                cursor:pointer;
+                color:#ffffff;
+                font-family:Arial;
+                font-size:13px !important;
+                padding:7px 44px;
+                text-decoration:none;
+                text-shadow:0px 1px 0px #283966;
+            }
+            .myButton:hover {
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
+                background:-moz-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+                background:-webkit-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+                background:-o-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+                background:-ms-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+                background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#476e9e', endColorstr='#7892c2',GradientType=0);
+                background-color:#476e9e;
+            }
+            .myButton:active {
+                position:relative;
+                top:1px;
+            }
+            input[readonly], input[readonly="readonly"]{
+                background-color: #e4e4e4;
+            }
+
+            h1.headline {
+                margin: 1em 0 0.5em 0;
+                color: #343434;
+                font-weight: normal;
+                font-family: 'Ultra', sans-serif;   
+                font-size: 36px;
+                line-height: 42px;
+                text-transform: uppercase;
+                text-shadow: 0 2px white, 0 3px #777;
+            }
+
+        </style>
     </head>
     <body>
-        1. 검색(조회, 페이징)
-        2. 수정(참조가능)
-        3. 추가(참조가능)
-        4. 삭제
+        <h1 class="headline">Todo List</h1>
         <div class="search-container">
             <div class="search-row">
                 <div class="search-column">
                     <label>Task</label>
-                    <input type="text" id="search-task">
+                    <input type="text" id="search-task" onkeydown="search(event);">
                 </div>
                 <div class="search-column">
                     <label>Created Date</label>
@@ -31,62 +245,77 @@
                     <label>Updated Date</label>
                     <input type="date" id="search-updatedDate">
                 </div>
-            </div>
-            <div class="search-btn-row">
-                <button id="testBtn">Search</button>
+                <div class="search-column">
+                    <button id="testBtn" class="myButton">Search</button>
+                </div>
             </div>
         </div>
         <div id="jsGrid"></div>
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="detailsDialog" aria-labelledby="ui-id-1" style="position: absolute;height: auto;width: 400px;top: 192px;left: 289px;display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">Edit Client</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">Close</span></button></div><div id="detailsDialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 93px; max-height: none; height: auto;">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="detailsDialog" aria-labelledby="ui-id-1" style="position: absolute;height: auto;width: 400px;top: 192px;left: 289px;display: none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle">
+            <span id="ui-id-1" class="ui-dialog-title">Edit Client</span>
+            <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close">
+                <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+                <span class="ui-button-text">Close</span>
+            </button>
+        </div>
+        <div id="detailsDialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 93px; max-height: none; height: auto;">
             <form id="detailsForm" novalidate="novalidate">
                 <div class="details-form-field">
-                    <label for="todoId">ID:</label>
+                    <label for="todoId">ID</label>
                     <input id="todoId" name="todoId" type="number" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
-                    <label for="task">Task:</label>
+                    <label for="task">Task</label><span class="validMsg" id="task-validationMsg"></span>
                     <input id="task" name="task" type="text" class="valid">
                 </div>
                 <div class="details-form-field">
-                    <label for="referenceIds">Reference Ids:</label>
+                    <label for="referenceIds">Reference Ids</label><span class="validMsg" id="referIds-validationMsg"></span>
                     <input id="referenceIds" name="referenceIds" type="text" class="valid">
                 </div>
                 <div class="details-form-field">
-                    <label for="createdDate">Created Date:</label>
+                    <label for="createdDate">Created Date</label>
                     <input id="createdDate" name="createdDate" type="text" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
-                    <label for="updatedDate">Updated Date:</label>
+                    <label for="updatedDate">Updated Date</label>
                     <input id="updatedDate" name="updatedDate" type="text" class="valid" readonly>
                 </div>
                 <div class="details-form-field">
-                    <label for="isDone">Is Done</label>
-                    <input id="isDone" name="isDone" type="checkbox">
+                    <label class="container" for="isDone">Done
+                        <input type="checkbox" id="isDone" name="isDone">
+                        <span class="checkmark"></span>
+                    </label>
                 </div>
                 <div class="details-form-field">
-                    <button type="submit" id="save">Save</button>
+                    <button type="submit" id="save" class="myButton">Save</button>
                 </div>
             </form>
         </div>
     </body>
     <script>
+        function search(evt){ 
+            if(evt.keyCode == 13) $('#testBtn').click();
+        }
+
         $(function() {
 
-            $("#pager").on("change", function() {
-                var page = parseInt($(this).val(), 10);
-                $("#jsGrid").jsGrid("openPage", page);
-            });
-        
+            
+
             $("#jsGrid").jsGrid({
                 width: "100%",
                 height: "400px",
             
+                rowClass: function(item, itemIndex) {
+                    if(item.isDone) return "todo-Done";
+                },
+
                 editing: true,
                 autoload: true,
                 paging: true,
+                pageLoading:true,
 
                 pageIndex: 1,
-                pageSize: 10,
+                pageSize: 5,
                 pageButtonCount: 10,
                 
                 controller: {
@@ -97,8 +326,12 @@
                             ,data:parameters
                             ,dataType: "json"
                         }).done(function(response) {
-                            if(response.success) d.resolve(response.data);
-                            else {
+                            if(response.success) {
+                                d.resolve({
+                                    data: response.data.items
+                                    ,itemsCount: response.data.totalCount
+                                });
+                            } else {
                                 alert(response.message);
                                 d.reject();
                             }
@@ -115,8 +348,10 @@
                             ,data: JSON.stringify(parameters)
                             ,dataType: "json"
                         }).done(function(response) {
-                            if(response.success) d.resolve(response.data);
-                            else {
+                            if(response.success) {
+                                alert('insert successFully');
+                                d.resolve(response.data);
+                            } else {
                                 alert(response.message);
                                 d.reject();
                             }
@@ -133,10 +368,12 @@
                             ,data: JSON.stringify(parameters)
                             ,dataType: "json"
                         }).done(function(response) {
-                            if(response.success) d.resolve(response.data);
-                            else {
+                            if(response.success) {
+                                alert('update successFully');
+                                d.resolve(response.data);
+                            }else {
                                 alert(response.message);
-                                d.reject();
+                                d.resolve(previousItem);
                             }
                         });
         
@@ -149,8 +386,10 @@
                             ,type: "DELETE"
                             ,dataType: "json"
                         }).done(function(response) {
-                            if(response.success) d.resolve(response.data);
-                            else {
+                            if(response.success) {
+                                alert('delete successFully');
+                                d.resolve(response.data);
+                            } else {
                                 alert(response.message);
                                 d.reject();
                             }
@@ -162,56 +401,60 @@
 
         
                 fields: [
-                    { name: "todoId", title: "ID", type: "number", width: 50, validate: "required" },
+                    { name: "todoId", title: "ID", type: "number", width: 50, validate: "required", align: "center" },
                     { name: "task", title: "Task", type: "text", width: 150 },
                     { name: "referenceIds", title: "Reference Ids", type: "text", width: 100,
                         itemTemplate: function(value) {
                             return jQuery.isEmptyObject(value) ? "" : value.map(id => '@'+id+'&nbsp;');
                         }
                     },
-                    { name: "createdDate", title: "Created Date", type: "text", width: 200, readOnly:true,
+                    { name: "createdDate", title: "Created Date", type: "text", width: 200, align: "center", readOnly:true,
                         itemTemplate: function(value) {
                             return $("<div>").append(moment(value).format("YYYY-MM-DD HH:mm:ss"));
                         }  
                     },
-                    { name: "updatedDate", title: "Updated Date", type: "text", width: 200, readOnly:true,
+                    { name: "updatedDate", title: "Updated Date", type: "text", align: "center", width: 200, readOnly:true,
                         itemTemplate: function(value) {
                             return $("<div>").append(moment(value).format("YYYY-MM-DD HH:mm:ss"));
                         }  
                      },
-                    { name: "isDone", type: "checkbox", title: "Done", sorting: false },
                     {
                         type: "control",
+                        deleteButton: false, 
                         modeSwitchButton: false,
                         editButton: false,
                         headerTemplate: function() {
-                            return $("<button>").attr("type", "button").text("Add")
+                            return $("<button>").attr("type", "button").addClass('jsgrid-button jsgrid-insert-button')
                                     .on("click", function () {
                                         showDetailsDialog("Add", {});
                                     });
-                        }
+                        },
+                        itemTemplate: function(value, item) {
+                            return item.isDone ? "Done" : "";
+                         }
                     }
                 ],
-                // onItemInserting: function(args) {
-                //     alert("onItemInserting");
-                // },
-                // onItemUpdating: function(args) {
-                //     alert("onItemUpdating");
-                // },
-                // onItemDeleting: function(args) {
-                //     alert("onItemDeleting");
-                // },
-                // onPageChanged: function(args) {
-                //     alert("onPageChanged");
-                // },
-                // onDataLoading: function(args) {
-                //     alert("onDataLoading");
-                // },
-                deleteConfirm: function(item) {
-                    return "The client \"" + item.Name + "\" will be removed. Are you sure?";
+                onItemUpdating: function(args) {
+                    // previousItem = args.previousItem;
                 },
                 rowClick: function(args) {
+                    previousItem = $.extend({}, args.item);
                     showDetailsDialog("Edit", args.item);
+                },
+                onPageChanged: function(args) {
+                    var searchCondition = {
+                        task: $("#search-task").val(),
+                        createdDate: $("#search-createdDate").val() ? new Date($("#search-createdDate").val()).getTime() : null,
+                        updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null,
+                        pageSize: 5,
+                        pageIndex: (args.pageIndex -1)
+                    }
+                    $("#jsGrid").jsGrid("loadData", searchCondition).done(function() {
+                        console.log("data loaded");
+                    });
+                },
+                onDataLoaded: function(args) {
+
                 }
             });
 
@@ -219,20 +462,24 @@
                 autoOpen: false,
                 width: 400,
                 close: function() {
+                    $('#task-validationMsg').text("");
+                    $('#referIds-validationMsg').text("");
                     $("#detailsForm").validate().resetForm();
                     $("#detailsForm").find(".error").removeClass("error");
                 }
             });
 
             $("#detailsForm").validate({
-                rules: {
-                    task: { 
-                        required: true
-                    }
+                submitHandler: function() {
+                    formSubmitHandler();
                 },
-                messages: {
-                    task: "vaildation failed"
-                },
+                resetForm: function() {
+                    $('#task-validationMsg').text("");
+                    $('#referIds-validationMsg').text("");
+                }
+            });
+
+            $("#detailsForm").validate({
                 submitHandler: function() {
                     formSubmitHandler();
                 }
@@ -247,22 +494,33 @@
                 $("#createdDate").val(moment(todo.createdDate).format("YYYY-MM-DD HH:mm:ss"));
                 $("#updatedDate").val(moment(todo.updatedDate).format("YYYY-MM-DD HH:mm:ss"));    
                 $("#isDone").prop("checked", todo.isDone);
+                if(todo.isDone){
+                    $("#isDone").attr('disabled',true);
+                }else{
+                    $("#isDone").attr('disabled',false);
+                }
 
                 formSubmitHandler = function() {
-                    if(/^(\d|,)*\.?\d*$/.test($("#referenceIds").val())){
-                        var array = $("#referenceIds").val().split(",").map(Number);
-                        var index = array.indexOf(parseInt($("#todoId").val()));
-                        if(index === -1){
-                            saveClient(todo, dialogType === "Add");
+                    if(!$("#task").val()){
+                        $("#detailsForm").validate().resetForm();
+                        $('#task-validationMsg').text("required field");
+                    }else{
+                        $('#task-validationMsg').text("");
+                        if(/^(\d|,)*\.?\d*$/.test($("#referenceIds").val())){
+                            var array = $("#referenceIds").val().split(",").map(Number);
+                            var index = array.indexOf(parseInt($("#todoId").val()));
+                            if(index === -1){
+                                $('#referIds-validationMsg').text("");
+                                saveClient(todo, dialogType === "Add");
+                            }else{
+                                $("#detailsForm").validate().resetForm();
+                                $('#referIds-validationMsg').text("reference id should be not include " + $("#todoId").val());
+                            }
                         }else{
                             $("#detailsForm").validate().resetForm();
-                            alert("fail!!");
+                            $('#referIds-validationMsg').text("this format should be '{number},{number}' ");
                         }
-                    }else{
-                        $("#detailsForm").validate().resetForm();
-                        alert("fail!!");
                     }
-                    
                 };
 
                 $("#detailsDialog").dialog("option", "title", dialogType + " Client").dialog("open");
@@ -279,7 +537,6 @@
                 });
         
                 $("#jsGrid").jsGrid(isNew ? "insertItem" : "updateItem", todo);
-        
                 $("#detailsDialog").dialog("close");
             };
 
@@ -287,7 +544,9 @@
                 var searchCondition = {
                     task: $("#search-task").val(),
                     createdDate: $("#search-createdDate").val() ? new Date($("#search-createdDate").val()).getTime() : null,
-                    updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null
+                    updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null,
+                    pageSize: 5,
+                    pageIndex: 1
                 }
                 $("#jsGrid").jsGrid("loadData", searchCondition).done(function() {
                     console.log("data loaded");
