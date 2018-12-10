@@ -22,9 +22,9 @@ $ mvn spring-boot:run
 
 - Get todo
 
-Url : localhost:29801/todos
-Method : GET
-Request :
+Url : localhost:29801/todos \n
+Method : GET \n
+Request : \n
 ```
 {
 	"pageSize": 10,
