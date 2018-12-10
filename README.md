@@ -37,6 +37,8 @@ To add ReferenceIds, type '{number},' but do not allow input values.<br/><br/>
 - DB : h2 inmemory DB
 
 ### DB Schema
+picTure!!!!
+
 
 ### API Specification
 
@@ -86,7 +88,7 @@ Description : Insert todo <br />
 Request : 
 ```
 {
-	"todoId": 26,
+	"todoId": null,
         "task": "study java",
         "createdDate": "2018-05-45 12:00:00",
         "updatedDate": "2018-05-45 12:00:00",
@@ -131,10 +133,6 @@ Response :
 Url : localhost:29801/todos/{todoId} <br />
 Method : DELETE <br />
 Description : Delete todo <br />
-Request : 
-```
-
-```
 Response :
 ```
 {
