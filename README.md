@@ -14,6 +14,14 @@ $ mvn spring-boot:run
 - Example Url : http://localhost:29801
 - Swagger Url : http://localhost:29801/swagger-ui.html
 
+## How to use?
+- Search
+You can retrieve data by adding various conditions.(Task, Created Date, Updated Date)
+![Search]({{site.baseurl}}//Search.PNG)
+
+- Create
+
+
 ## Strategies
 
 ### Environment
@@ -63,6 +71,7 @@ Response :
     ]
 }
 ```
+<br />
 
 Url : localhost:29801/todos <br />
 Method : POST <br />
@@ -86,6 +95,7 @@ Response :
 	"data": null
 }
 ```
+<br />
 
 Url : localhost:29801/todos/{todoId} <br />
 Method : PUT <br />
@@ -109,6 +119,7 @@ Response :
 	"data": null
 }
 ```
+<br />
 
 Url : localhost:29801/todos/{todoId} <br />
 Method : DELETE <br />
