@@ -40,7 +40,7 @@ To add ReferenceIds, type '{number},' in text box, or do not allow input values.
 - DB : h2 inmemory DB
 
 ### DB Schema
-![db schema](http://pomelowholesale.net/css/images/incheol/create.png)
+![db schema](http://pomelowholesale.net/css/images/incheol/erd.png)
 
 
 ### API Specification
