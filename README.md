@@ -1,12 +1,12 @@
-### Todo List
+## Todo List
 Incheol's Todo List
 
-### Installation
+## Installation
 ```
 $ mvn install
 ```
 
-### Running the Application
+## Running the Application
 ```
 $ mvn spring-boot:run
 ```
@@ -14,11 +14,11 @@ $ mvn spring-boot:run
 - Example Url : http://localhost:29801
 - Swagger Url : http://localhost:29801/swagger-ui.html
 
-### Strategies
+## Strategies
 
-## DB Schema
+### DB Schema
 
-## API Specification
+### API Specification
 
 - Get todo
 
@@ -28,7 +28,7 @@ Request :
 ```
 {
 	"pageSize": 10,
-	"pageNumber": 1,
+	"pageIndex": 1,
 	"task": "study",
 	"createdOn": "2018-05-45 12:00:00",
 	"updatedOn": "2018-05-45 12:00:00"
@@ -60,9 +60,70 @@ Response :
 }
 ```
 
+- Insert todo
 
+Url : localhost:29801/todos <br />
+Method : POST <br />
+Request : 
+```
+{
+	"pageSize": 10,
+	"pageNumber": 1,
+	"task": "study",
+    "referenceIds": [1,2,3,4],
+	"createdOn": "2018-05-45 12:00:00",
+	"updatedOn": "2018-05-45 12:00:00"
+}
+```
+Response :
+```
+{
+	"success": true,
+	"message": "Success",
+	"data": null
+}
+```
 
+- Update todo
 
+Url : localhost:29801/todos/{todoId} <br />
+Method : PUT <br />
+Request : 
+```
+{
+	"pageSize": 10,
+	"pageNumber": 1,
+	"task": "study",
+    "referenceIds": [1,2,3,4],
+	"createdOn": "2018-05-45 12:00:00",
+	"updatedOn": "2018-05-45 12:00:00"
+}
+```
+Response :
+```
+{
+	"success": true,
+	"message": "Success",
+	"data": null
+}
+```
+
+- Delete todo
+
+Url : localhost:29801/todos/{todoId} <br />
+Method : DELETE <br />
+Request : 
+```
+
+```
+Response :
+```
+{
+	"success": true,
+	"message": "Success",
+	"data": null
+}
+```
 
 
 
