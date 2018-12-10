@@ -17,20 +17,20 @@ $ mvn spring-boot:run
 ## How to use?
 - Search<br/>
 You can retrieve data by adding various conditions.(Task, Created Date, Updated Date)<br/>
-![search]({{site.baseurl}}/http://pomelowholesale.net/css/images/incheol/search.png)<br/><br/>
+![search](http://pomelowholesale.net/css/images/incheol/search.png)<br/><br/>
 
 - Create/Insert<br/>
 You can create or modify tasks.<br/>
-![create/update]({{site.baseurl}}/http://pomelowholesale.net/css/images/incheol/create.png)<br/><br/>
+![create/update](http://pomelowholesale.net/css/images/incheol/create.png)<br/><br/>
 
 - Pagination<br/>
 The list implements the paging function and has a **page size of 5**.<br/>
-![pagination]({{site.baseurl}}/http://pomelowholesale.net/css/images/incheol/paging.png)<br/><br/>
+![pagination](http://pomelowholesale.net/css/images/incheol/paging.png)<br/><br/>
 
 - Validation <br/>
 If you create or modify a task without typing, a warning message appears. <br/>
 To add ReferenceIds, type '{number},' in text box, or do not allow input values.<br/>
-![validation]({{site.baseurl}}/http://pomelowholesale.net/css/images/incheol/validation.png)<br/><br/>
+![validation](http://pomelowholesale.net/css/images/incheol/validation.png)<br/><br/>
 
 ## Strategies
 
@@ -40,7 +40,7 @@ To add ReferenceIds, type '{number},' in text box, or do not allow input values.
 - DB : h2 inmemory DB
 
 ### DB Schema
-![db schema]({{site.baseurl}}/http://pomelowholesale.net/css/images/incheol/create.png)
+![db schema](http://pomelowholesale.net/css/images/incheol/create.png)
 
 
 ### API Specification
