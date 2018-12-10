@@ -1,0 +1,214 @@
+.search-container{
+    display: block;
+    width: 97%;
+    min-width: 800px;
+    border: 1px solid #bbb;
+    padding: 18px 20px 13px;
+    background: #f5f5f5;
+    border-radius: 2px;
+    height:70px;
+}
+table tr.todo-Done td{
+    color:#bfbfbf;
+}
+.search-row{
+    display: table;
+    width: 100%;
+}
+.search-row .search-column{
+    display: table-cell;
+    padding-right: 25px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 200px;
+    vertical-align: top;
+}
+.search-row .search-column:last-child{
+    vertical-align: bottom;
+    text-align: right;
+}
+.search-row .search-column label{
+    display: block;
+    height: 15px;
+    padding-bottom: 5px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.search-row input{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 13px;
+    color: #666;
+    border: 1px solid #bbb;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width:70%;
+}
+#jsGrid{
+    margin-top:20px;
+}
+.detailsForm{
+
+}
+#detailsForm .details-form-field{
+    margin-bottom:10px;
+}
+#detailsForm label{
+    height: 15px;
+    padding-bottom: 5px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+#detailsForm input{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 13px;
+    color: #666;
+    border: 1px solid #bbb;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width:90%;
+    
+}
+.container {
+    display: block;
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height:40px !important;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+#detailsForm .validMsg{
+    font-size: 9px;
+    float: right;
+    margin: 4px 8px;
+    color: red;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #c9e7f5;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.jsgrid-header-row>.jsgrid-header-cell{
+    font-size:14px;
+    
+}
+.myButton {
+    -moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
+    -webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #476e9e));
+    background:-moz-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-webkit-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-o-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:-ms-linear-gradient(top, #7892c2 5%, #476e9e 100%);
+    background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#476e9e',GradientType=0);
+    background-color:#7892c2;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border:1px solid #4e6096;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px !important;
+    padding:7px 44px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #283966;
+}
+.myButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #476e9e), color-stop(1, #7892c2));
+    background:-moz-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+    background:-webkit-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+    background:-o-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+    background:-ms-linear-gradient(top, #476e9e 5%, #7892c2 100%);
+    background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#476e9e', endColorstr='#7892c2',GradientType=0);
+    background-color:#476e9e;
+}
+.myButton:active {
+    position:relative;
+    top:1px;
+}
+input[readonly], input[readonly="readonly"]{
+    background-color: #e4e4e4;
+}
+
+h1.headline {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;   
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+}

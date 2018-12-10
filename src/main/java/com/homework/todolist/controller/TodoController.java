@@ -30,7 +30,7 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="", method=RequestMethod.GET)
     public String getTodoList() {
         return "index";
     }
