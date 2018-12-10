@@ -18,7 +18,7 @@ import com.homework.todolist.model.MapTodo;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
 import com.homework.todolist.model.pojo.GetTodoResponse;
-import com.homework.todolist.model.pojo.SaveTodo;
+import com.homework.todolist.model.pojo.SaveTodoParameter;
 import com.querydsl.core.QueryResults;
 
 
@@ -63,7 +63,7 @@ public class TodoService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public Todo saveTodo(Integer todoId, SaveTodo parameter) throws Exception {
+	public Todo saveTodo(Integer todoId, SaveTodoParameter parameter) throws Exception {
 		Todo todo = new Todo();
 		if(todoId != null) {
 			todo = todoRepository.findOneByTodoId(todoId);
@@ -139,7 +139,7 @@ public class TodoService {
 	 * @param parameter
 	 * @return
 	 */
-	private Todo saveTodo(Todo todo, SaveTodo parameter) {
+	private Todo saveTodo(Todo todo, SaveTodoParameter parameter) {
 		todo.setCreatedDate(parameter.getCreatedDate());
 		todo.setUpdatedDate(parameter.getUpdatedDate());
 		todo.setTask(parameter.getTask());

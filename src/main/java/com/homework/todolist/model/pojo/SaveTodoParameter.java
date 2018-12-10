@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @author Incheol Jung
  */
-public class SaveTodo {
+public class SaveTodoParameter {
 	@ApiModelProperty(example="1")
 	private int todoId;
 	

@@ -16,7 +16,7 @@ import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
 import com.homework.todolist.model.pojo.GetTodoResponse;
 import com.homework.todolist.model.pojo.JsonResponse;
-import com.homework.todolist.model.pojo.SaveTodo;
+import com.homework.todolist.model.pojo.SaveTodoParameter;
 import com.homework.todolist.service.TodoService;
 
 /**
@@ -31,7 +31,7 @@ public class TodoController {
 	private TodoService todoService;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-    public String getTodoList(GetTodoParameter parameter) {
+    public String getTodoList() {
         return "index";
     }
 	
@@ -45,7 +45,7 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value="/todos", method=RequestMethod.POST)
-    public JsonResponse<Todo> insertTodo(@RequestBody SaveTodo parameter) throws Exception {
+    public JsonResponse<Todo> insertTodo(@RequestBody SaveTodoParameter parameter) throws Exception {
 		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(null, parameter));
         return result;
@@ -53,7 +53,7 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value="/todos/{todoId}", method=RequestMethod.PUT)
-    public JsonResponse<Todo> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodo parameter) throws Exception {
+    public JsonResponse<Todo> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodoParameter parameter) throws Exception {
 		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(todoId, parameter));
         return result;

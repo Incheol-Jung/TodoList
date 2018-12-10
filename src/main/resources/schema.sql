@@ -1,6 +1,6 @@
 CREATE TABLE todo(
   todoId      INT PRIMARY KEY AUTO_INCREMENT,
-  title			VARCHAR(50),
+  task			VARCHAR(50),
   createdDate	TIMESTAMP,
   updatedDate	TIMESTAMP,
   isDone		bit
