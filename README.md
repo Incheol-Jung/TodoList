@@ -27,7 +27,7 @@ The list implements the paging function and has a page size of 5.<br/><br/>
 
 - Validation <br/>
 If you create or modify a task without typing, a warning message appears. <br/>
-To add ReferenceIds, type '{number},' but do not allow input values.<br/><br/>
+To add ReferenceIds, type '{number},' in text box, or do not allow input values.<br/><br/>
 
 ## Strategies
 
