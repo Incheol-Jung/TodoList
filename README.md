@@ -10,8 +10,8 @@ $ mvn install
 ```
 $ mvn spring-boot:run
 ```
-Url : http://localhost:29801
-Swagger-ui : http://localhost:29801/swagger-ui.html
+- Example Url : http://localhost:29801
+- Swagger Url : http://localhost:29801/swagger-ui.html
 
 
 
