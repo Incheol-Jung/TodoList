@@ -3,8 +3,6 @@
  */
 package com.homework.todolist.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
+import com.homework.todolist.model.pojo.GetTodoResponse;
 import com.homework.todolist.model.pojo.JsonResponse;
 import com.homework.todolist.model.pojo.SaveTodo;
 import com.homework.todolist.service.TodoService;
@@ -25,27 +24,27 @@ import com.homework.todolist.service.TodoService;
  */
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/todos", produces = "application/json")
+@RequestMapping(value = "", produces = "application/json")
 public class TodoController {
 	
 	@Autowired
 	private TodoService todoService;
 	
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//    public String getTodoList(GetTodoParameter parameter) {
-//        return "index";
-//    }
+	@RequestMapping(value="/", method=RequestMethod.GET)
+    public String getTodoList(GetTodoParameter parameter) {
+        return "index";
+    }
 	
 	@ResponseBody
-	@RequestMapping(value="", method=RequestMethod.GET)
-    public JsonResponse<List<Todo>> getTodos(GetTodoParameter parameter) {
-		JsonResponse<List<Todo>> result = new JsonResponse<List<Todo>>();
+	@RequestMapping(value="/todos", method=RequestMethod.GET)
+    public JsonResponse<GetTodoResponse> getTodos(GetTodoParameter parameter) {
+		JsonResponse<GetTodoResponse> result = new JsonResponse<GetTodoResponse>();
 		result.setData(todoService.getTodos(parameter));
         return result;
     }
 	
 	@ResponseBody
-	@RequestMapping(value="", method=RequestMethod.POST)
+	@RequestMapping(value="/todos", method=RequestMethod.POST)
     public JsonResponse<Todo> insertTodo(@RequestBody SaveTodo parameter) throws Exception {
 		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(null, parameter));
@@ -53,7 +52,7 @@ public class TodoController {
     }
 	
 	@ResponseBody
-	@RequestMapping(value="/{todoId}", method=RequestMethod.PUT)
+	@RequestMapping(value="/todos/{todoId}", method=RequestMethod.PUT)
     public JsonResponse<Todo> updateTodo(@PathVariable Integer todoId, @RequestBody SaveTodo parameter) throws Exception {
 		JsonResponse<Todo> result = new JsonResponse<Todo>();
 		result.setData(todoService.saveTodo(todoId, parameter));
@@ -61,7 +60,7 @@ public class TodoController {
     }
 	
 	@ResponseBody
-	@RequestMapping(value="/{todoId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/todos/{todoId}", method=RequestMethod.DELETE)
     public JsonResponse<String> deleteTodo(@PathVariable Integer todoId) {
 		JsonResponse<String> result = new JsonResponse<String>();
 		result.setData(todoService.deleteTodo(todoId));
