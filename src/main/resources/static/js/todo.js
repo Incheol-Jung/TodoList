@@ -149,8 +149,8 @@ $(function() {
         onPageChanged: function(args) {
             var searchCondition = {
                 task: $("#search-task").val(),
-                createdDate: $("#search-createdDate").val() ? new Date($("#search-createdDate").val()).getTime() : null,
-                updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null,
+                createdDate: $("#search-createdDate").val() ? moment($("#search-createdDate").val()).format('x') : null,
+                updatedDate: $("#search-updatedDate").val() ? moment($("#search-updatedDate").val()).format('x') : null,
                 pageSize: 5,
                 pageIndex: (args.pageIndex -1)
             }
@@ -250,8 +250,8 @@ $(function() {
     $("#testBtn").on("click", function(){
         var searchCondition = {
             task: $("#search-task").val(),
-            createdDate: $("#search-createdDate").val() ? new Date($("#search-createdDate").val()).getTime() : null,
-            updatedDate: $("#search-updatedDate").val() ? new Date($("#search-updatedDate").val()).getTime() : null,
+            createdDate: $("#search-createdDate").val() ? moment($("#search-createdDate").val()).format('x') : null,
+            updatedDate: $("#search-updatedDate").val() ? moment($("#search-updatedDate").val()).format('x') : null,
             pageSize: 5,
             pageIndex: 1
         }
