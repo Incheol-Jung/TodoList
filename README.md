@@ -16,14 +16,18 @@ $ mvn spring-boot:run
 
 ## Strategies
 
+### Environment
+- BackEnd : SpringBoot
+- FrontEnd : html, JSGrid(Javascript)
+- DB : h2 inmemory DB
+
 ### DB Schema
 
 ### API Specification
 
-- Get todo
-
 Url : localhost:29801/todos <br />
 Method : GET <br />
+Description : Get Todos <br />
 Request : 
 ```
 {
@@ -60,10 +64,9 @@ Response :
 }
 ```
 
-- Insert todo
-
 Url : localhost:29801/todos <br />
 Method : POST <br />
+Description : Insert todo <br />
 Request : 
 ```
 {
@@ -83,11 +86,10 @@ Response :
 	"data": null
 }
 ```
-
-- Update todo
 
 Url : localhost:29801/todos/{todoId} <br />
 Method : PUT <br />
+Description : Update todo <br />
 Request : 
 ```
 {
@@ -108,10 +110,9 @@ Response :
 }
 ```
 
-- Delete todo
-
 Url : localhost:29801/todos/{todoId} <br />
 Method : DELETE <br />
+Description : Delete todo <br />
 Request : 
 ```
 
