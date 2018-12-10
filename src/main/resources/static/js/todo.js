@@ -218,7 +218,7 @@ $(function() {
                     var index = array.indexOf(parseInt($("#todoId").val()));
                     if(index === -1){
                         $('#referIds-validationMsg').text("");
-                        saveClient(todo, dialogType === "Add");
+                        saveTodo(todo, dialogType === "Add");
                     }else{
                         $("#detailsForm").validate().resetForm();
                         $('#referIds-validationMsg').text("reference id should be not include " + $("#todoId").val());
@@ -230,10 +230,10 @@ $(function() {
             }
         };
 
-        $("#detailsDialog").dialog("option", "title", dialogType + " Client").dialog("open");
+        $("#detailsDialog").dialog("option", "title", dialogType + " Todo").dialog("open");
     };
 
-    var saveClient = function(todo, isNew) {
+    var saveTodo = function(todo, isNew) {
         $.extend(todo, {
             todoId: parseInt($("#todoId").val(), 10),
             task: $("#task").val(),
