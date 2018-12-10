@@ -41,7 +41,7 @@ Response :
 	"message": null,
 	"data": [
               {
-                    "id": 26,
+                    "todoId": 26,
                     "task": "study java",
                     "createdOn": "2018-05-45 12:00:00",
                     "updatedOn": "2018-05-45 12:00:00",
@@ -49,7 +49,7 @@ Response :
                     "referenceIds": [1,2,3,4]
               },
               {
-                    "id": 27,
+                    "todoId": 27,
                     "task": "study angular",
                     "createdOn": "2018-05-45 12:00:00",
                     "updatedOn": null,
@@ -67,12 +67,12 @@ Method : POST <br />
 Request : 
 ```
 {
-	"pageSize": 10,
-	"pageNumber": 1,
-	"task": "study",
-    	"referenceIds": [1,2,3,4],
-	"createdOn": "2018-05-45 12:00:00",
-	"updatedOn": "2018-05-45 12:00:00"
+	"todoId": 26,
+    "task": "study java",
+    "createdOn": "2018-05-45 12:00:00",
+    "updatedOn": "2018-05-45 12:00:00",
+    "isDone": true,
+    	"referenceIds": [1,2,3,4]
 }
 ```
 Response :
@@ -91,12 +91,12 @@ Method : PUT <br />
 Request : 
 ```
 {
-	"pageSize": 10,
-	"pageNumber": 1,
-	"task": "study",
-    	"referenceIds": [1,2,3,4],
-	"createdOn": "2018-05-45 12:00:00",
-	"updatedOn": "2018-05-45 12:00:00"
+	"todoId": 26,
+    "task": "study java",
+    "createdOn": "2018-05-45 12:00:00",
+    "updatedOn": "2018-05-45 12:00:00",
+    "isDone": true,
+    	"referenceIds": [1,2,3,4]
 }
 ```
 Response :
