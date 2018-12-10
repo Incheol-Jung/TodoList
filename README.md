@@ -30,8 +30,8 @@ Request :
 	"pageSize": 10,
 	"pageIndex": 1,
 	"task": "study",
-	"createdOn": "2018-05-45 12:00:00",
-	"updatedOn": "2018-05-45 12:00:00"
+	"createdDate": "2018-05-45 12:00:00",
+	"updatedDate": "2018-05-45 12:00:00"
 }
 ```
 Response :
@@ -43,16 +43,16 @@ Response :
               {
                     "todoId": 26,
                     "task": "study java",
-                    "createdOn": "2018-05-45 12:00:00",
-                    "updatedOn": "2018-05-45 12:00:00",
+                    "createdDate": "2018-05-45 12:00:00",
+                    "updatedDate": "2018-05-45 12:00:00",
                     "isDone": true,
                     "referenceIds": [1,2,3,4]
               },
               {
                     "todoId": 27,
                     "task": "study angular",
-                    "createdOn": "2018-05-45 12:00:00",
-                    "updatedOn": null,
+                    "createdDate": "2018-05-45 12:00:00",
+                    "updatedDate": null,
                     "isDone": false,
                     "referenceIds": [1]
               }
@@ -68,10 +68,10 @@ Request :
 ```
 {
 	"todoId": 26,
-    "task": "study java",
-    "createdOn": "2018-05-45 12:00:00",
-    "updatedOn": "2018-05-45 12:00:00",
-    "isDone": true,
+        "task": "study java",
+        "createdDate": "2018-05-45 12:00:00",
+        "updatedDate": "2018-05-45 12:00:00",
+        "isDone": true,
     	"referenceIds": [1,2,3,4]
 }
 ```
@@ -92,10 +92,10 @@ Request :
 ```
 {
 	"todoId": 26,
-    "task": "study java",
-    "createdOn": "2018-05-45 12:00:00",
-    "updatedOn": "2018-05-45 12:00:00",
-    "isDone": true,
+        "task": "study java",
+        "createdDate": "2018-05-45 12:00:00",
+        "updatedDate": "2018-05-45 12:00:00",
+        "isDone": true,
     	"referenceIds": [1,2,3,4]
 }
 ```
