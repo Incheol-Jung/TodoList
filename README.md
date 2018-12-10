@@ -22,7 +22,7 @@ $ mvn spring-boot:run
 
 - Get todo
 
-Url : localhost:29801/todos \n
+Url : localhost:29801/todos <br />
 Method : GET \n
 Request : \n
 ```
