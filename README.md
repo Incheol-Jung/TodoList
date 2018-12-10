@@ -23,7 +23,7 @@ You can retrieve data by adding various conditions.(Task, Created Date, Updated 
 You can create or modify tasks.<br/><br/>
 
 - Pagination<br/>
-The list implements the paging function and has a page size of 5.<br/><br/>
+The list implements the paging function and has a **page size of 5**.<br/><br/>
 
 - Validation <br/>
 If you create or modify a task without typing, a warning message appears. <br/>
