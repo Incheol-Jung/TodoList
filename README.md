@@ -40,7 +40,7 @@ To add ReferenceIds, type '{number},' in text box, or do not allow input values.
 - DB : h2 inmemory DB
 
 ### DB Schema
-picTure!!!!
+{Picture}
 
 
 ### API Specification
