@@ -18,7 +18,9 @@ import com.homework.todolist.dao.TodoRepository;
 import com.homework.todolist.model.MapTodo;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
+import com.homework.todolist.model.pojo.GetTodoResponse;
 import com.homework.todolist.model.pojo.SaveTodo;
+import com.querydsl.core.QueryResults;
 
 
 /**
@@ -43,9 +45,12 @@ public class TodoService {
 	 * @param parameter
 	 * @return
 	 */
-	public List<Todo> getTodos(GetTodoParameter parameter) {
-		List<Todo> result = todoRepository.findTodos(parameter);
-		return result;
+	public GetTodoResponse getTodos(GetTodoParameter parameter) {
+		GetTodoResponse response = new GetTodoResponse();
+		QueryResults<Todo> result = todoRepository.findTodos(parameter);
+		response.setItems(result.getResults());
+		response.setTotalCount(result.getTotal());
+		return response;
 	}
 	
 	
@@ -72,7 +77,7 @@ public class TodoService {
 		
 		if(check) {
 			if(parameter.getIsDone()) {
-				boolean referenceIsDone = todoRepository.checkisDone(todo.getTodoId());
+				boolean referenceIsDone = todoId != null ? todoRepository.checkisDonewithTodoId(todo.getTodoId()) : todoRepository.checkisDonewithReferenceIds(parameter.getReferenceIds());
 				if(referenceIsDone != true) {
 					throw new Exception("Sorry, Reference tasks are done yet");
 				}
