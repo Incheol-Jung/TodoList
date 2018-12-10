@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
+import com.querydsl.core.QueryResults;
 
 public interface CustomTodoRepository {
-	List<Todo> findTodos(GetTodoParameter parameter);
-	boolean checkisDone(Integer todoId);
+	QueryResults<Todo> findTodos(GetTodoParameter parameter);
+	boolean checkisDonewithTodoId(Integer todoId);
+	boolean checkisDonewithReferenceIds(List<Integer> referenceIds);
 }
