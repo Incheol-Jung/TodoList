@@ -18,7 +18,7 @@ public class GetTodoParameter {
 	@ApiModelProperty(example="10")
 	private Integer pageSize;
 	@ApiModelProperty(example="1")
-	private Integer pageNumber;
+	private Integer pageIndex;
 	
 	public String getTask() {
 		return task == null ? "" : task;
@@ -44,10 +44,10 @@ public class GetTodoParameter {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public Integer getPageNumber() {
-		return (pageNumber==null || pageNumber<0) ? 0 : pageNumber;
+	public Integer getPageIndex() {
+		return (pageIndex==null || pageIndex<0) ? 0 : pageIndex;
 	}
-	public void setPageNumber(Integer pageNumber) {
-		this.pageNumber = pageNumber;
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 }
