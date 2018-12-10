@@ -66,22 +66,4 @@ public class TodoController {
 		result.setData(todoService.deleteTodo(todoId));
         return result;
     }
-	
-//	@ResponseBody
-//	@RequestMapping(value="/{id}/finish/{isDone}", method=RequestMethod.POST)
-//    public String finishTodo(@PathVariable Integer id, @PathVariable boolean isDone) {
-//        return todoService.finishTodo(id, isDone);
-//    }
-//
-//	@ResponseBody
-//	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.POST)
-//    public String addReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
-//        return todoService.addReferenceId(id, referenceId);
-//    }
-//	
-//	@ResponseBody
-//	@RequestMapping(value="{id}/refer/{referenceId}", method=RequestMethod.DELETE)
-//    public String deleteReferenceId(@PathVariable Integer id, @PathVariable Integer referenceId) {
-//        return todoService.deleteReferenceId(id, referenceId);
-//    }
 }

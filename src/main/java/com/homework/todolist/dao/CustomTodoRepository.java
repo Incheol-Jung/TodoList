@@ -8,6 +8,5 @@ import com.querydsl.core.QueryResults;
 
 public interface CustomTodoRepository {
 	QueryResults<Todo> findTodos(GetTodoParameter parameter);
-	boolean checkisDonewithTodoId(Integer todoId);
 	boolean checkisDonewithReferenceIds(List<Integer> referenceIds);
 }

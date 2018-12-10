@@ -4,7 +4,6 @@
 package com.homework.todolist.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,7 +31,6 @@ public class TodoService {
 	@Autowired
 	private TodoRepository todoRepository;
 	
-	
 	@Autowired
 	private MapTodoRepository mapTodoRepository;
 	
@@ -52,8 +50,6 @@ public class TodoService {
 		response.setTotalCount(result.getTotal());
 		return response;
 	}
-	
-	
 	
 	/**
 	 * 
@@ -77,7 +73,7 @@ public class TodoService {
 		
 		if(check) {
 			if(parameter.getIsDone()) {
-				boolean referenceIsDone = todoId != null ? todoRepository.checkisDonewithTodoId(todo.getTodoId()) : todoRepository.checkisDonewithReferenceIds(parameter.getReferenceIds());
+				boolean referenceIsDone = todoRepository.checkisDonewithReferenceIds(parameter.getReferenceIds());
 				if(referenceIsDone != true) {
 					throw new Exception("Sorry, Reference tasks are done yet");
 				}
@@ -109,8 +105,12 @@ public class TodoService {
 		}
 	}
 	
-	
-	public boolean checkExistIds(List<Integer> todoIds) {
+	/**
+	 * 
+	 * @param todoIds
+	 * @return
+	 */
+	private boolean checkExistIds(List<Integer> todoIds) {
 		Integer count = todoRepository.countByTodoIdIn(todoIds);
 		return (todoIds.size() == count);
 	}
@@ -129,96 +129,5 @@ public class TodoService {
 	public String deleteTodo(Integer todoId) {
 		todoRepository.deleteById(todoId);
 		return "success";
-	}
-	
-	/**
-	 * 
-	 * finish Todo
-	 * 
-	 * @since 2018. 12. 5.
-	 * @author Incheol Jung
-	 * @param id
-	 * @param isDone
-	 * @return
-	 */
-	@Transactional
-	public String finishTodo(Integer id, boolean isDone) {
-		String message = "success";
-		Todo todo = todoRepository.findOneByTodoId(id);
-		if(todo!= null) {
-			todo.setIsDone(isDone);
-			todoRepository.save(todo);
-		}else {
-			message = "fail, task id is not exists";
-		}
-		return message;
-	}
-	
-	/**
-	 * 
-	 * check TaskIds
-	 * 
-	 * @since 2018. 12. 5.
-	 * @author Incheol Jung
-	 * @param Ids
-	 * @return
-	 */
-	private boolean checkTaskIds(List<Integer> Ids) {
-		return Ids.size() == todoRepository.countByTodoIdIn(Ids);
-	}
-	
-	/**
-	 * 
-	 * add ReferenceId
-	 * 
-	 * @since 2018. 12. 5.
-	 * @author Incheol Jung
-	 * @param id
-	 * @param referenceId
-	 * @return
-	 */
-	@Transactional
-	public String addReferenceId(Integer id, Integer referenceId) {
-		String message = "success";
-		if(this.checkTaskIds(Arrays.asList(id, referenceId))) {
-			MapTodo mapTodo = mapTodoRepository.findOneByTodoIdAndReferenceId(id, referenceId);
-			
-			if(mapTodo == null) {
-				mapTodo = new MapTodo();
-				mapTodo.setTodoId(id);
-				mapTodo.setReferenceId(referenceId);
-				
-				mapTodoRepository.save(mapTodo);
-				
-			}else {
-				message = "fail, already exists";
-			}
-		}else {
-			message = "fail, task id is not exists";
-		}
-		
-		return message;
-	}
-	
-	/**
-	 * 
-	 * delete ReferenceId
-	 * 
-	 * @since 2018. 12. 5.
-	 * @author Incheol Jung
-	 * @param id
-	 * @param referenceId
-	 * @return
-	 */
-	@Transactional
-	public String deleteReferenceId(Integer id, Integer referenceId) {
-		String message = "success";
-		Integer count =  mapTodoRepository.deleteByTodoIdAndReferenceId(id, referenceId);
-		
-		if(count == 0) {
-			message = "fail, there are no id, referenceId";
-		}
-		
-		return message;
 	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.util.CollectionUtils;
 
-import com.homework.todolist.model.QMapTodo;
 import com.homework.todolist.model.QTodo;
 import com.homework.todolist.model.Todo;
 import com.homework.todolist.model.pojo.GetTodoParameter;
@@ -19,7 +18,6 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
     }
 	
 	private QTodo todo = QTodo.todo;
-	private QMapTodo mapTodo = QMapTodo.mapTodo;
 	
 	@Override
 	public QueryResults<Todo> findTodos(GetTodoParameter parameter){
@@ -39,16 +37,6 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
                 .fetchResults();
 		
 		return result;
-	}
-	
-	@Override
-	public boolean checkisDonewithTodoId(Integer todoId) {
-		Long count = from(mapTodo)
-						.where(mapTodo.todoId.eq(todoId))
-						.innerJoin(todo)
-						.on(mapTodo.referenceId.eq(todo.todoId).and(todo.isDone.eq(false)))
-						.fetchCount();
-		return count <= 0;
 	}
 	
 	@Override
