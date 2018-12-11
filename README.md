@@ -63,24 +63,26 @@ Response :
 {
 	"success": true,
 	"message": null,
-	"data": [
-              {
-                    "todoId": 26,
-                    "task": "study java",
-                    "createdDate": "2018-05-45 12:00:00",
-                    "updatedDate": "2018-05-45 12:00:00",
-                    "isDone": true,
-                    "referenceIds": [1,2,3,4]
-              },
-              {
-                    "todoId": 27,
-                    "task": "study angular",
-                    "createdDate": "2018-05-45 12:00:00",
-                    "updatedDate": null,
-                    "isDone": false,
-                    "referenceIds": [1]
-              }
-    ]
+	"data": {
+		"totalCount : 50,
+		"items" : [
+			      {
+				    "todoId": 26,
+				    "task": "study java",
+				    "createdDate": "2018-05-45 12:00:00",
+				    "updatedDate": "2018-05-45 12:00:00",
+				    "isDone": true,
+				    "referenceIds": [1,2,3,4]
+			      },
+			      {
+				    "todoId": 27,
+				    "task": "study angular",
+				    "createdDate": "2018-05-45 12:00:00",
+				    "updatedDate": null,
+				    "isDone": false,
+				    "referenceIds": [1]
+			      }
+		    ]
 }
 ```
 <br />
