@@ -50,7 +50,7 @@ public class TodoRepositoryImpl extends QuerydslRepositorySupport implements Cus
 	
 	/**
 	 * 
-	 * select count(*) from todo where todo in referenceIds and isDone = true
+	 * select count(*) from todo where todoId in referenceIds and isDone = false
 	 * 
 	 * @since 2018. 12. 10.
 	 * @author Incheol Jung
