@@ -107,7 +107,14 @@ Response :
 {
 	"success": true,
 	"message": "Success",
-	"data": null
+	"data": {
+                "todoId": 1,
+                "task": "study java",
+                "createdDate": "2018-05-45 12:00:00",
+                "updatedDate": "2018-05-45 12:00:00",
+                "isDone": true,
+                "referenceIds": [1,2,3,4]
+            }
 }
 ```
 <br />
@@ -131,7 +138,14 @@ Response :
 {
 	"success": true,
 	"message": "Success",
-	"data": null
+	"data": {
+                "todoId": 26,
+                "task": "study java",
+                "createdDate": "2018-05-45 12:00:00",
+                "updatedDate": "2018-05-45 12:00:00",
+                "isDone": true,
+                "referenceIds": [1,2,3,4]
+            }
 }
 ```
 <br />
@@ -147,9 +161,3 @@ Response :
 	"data": null
 }
 ```
-
-
-
-
-
-
